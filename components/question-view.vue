@@ -5,7 +5,7 @@ v-list-item(
   .py-2(
     :class="{ 'ml-4': nudge }"
   )
-    v-list-item-title.text-h5(
+    v-list-item-title.text-h6(
       :class="getColorClass()"
     ) {{ question.title }}
     v-list-item-subtitle.text-grey-darken-4(

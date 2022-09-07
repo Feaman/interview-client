@@ -1,7 +1,10 @@
 <template lang="pug">
-div.pa-10
+.default-layout.bg-grey-lighten-4.pa-10
   slot
 </template>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
+.default-layout
+  height: 100vh
+  overflow auto
 </style>

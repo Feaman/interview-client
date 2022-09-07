@@ -9,19 +9,19 @@ v-expansion-panel
       @click.stop="setStatusText(STATUS_SUPER)"
       :icon="mdiEmoticonHappyOutline"
       color="green"
-      size="small"
+      size="x-small"
     )
     v-btn.ml-2(
       @click.stop="setStatusText(STATUS_NOT_GOOD)"
       :icon="mdiEmoticonNeutralOutline"
       color="orange"
-      size="small"
+      size="x-small"
     )
     v-btn.ml-2.mr-4(
       @click.stop="setStatusText(STATUS_BAD)"
       :icon="mdiEmoticonSadOutline"
       color="red"
-      size="small"
+      size="x-small"
     )
   v-expansion-panel-text
     .d-flex.align-center.mt-4(
@@ -107,3 +107,9 @@ function copyToClipboard (string: string) {
   copy(string)
 }
 </script>
+
+<style lang="stylus" scoped>
+.v-btn :deep(.v-icon)
+  min-width 24px
+  min-height 24px
+</style>

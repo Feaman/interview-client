@@ -3,27 +3,32 @@ div
   .d-flex
     .text-h3 Interviews
     v-spacer
-    v-btn(@click="isDialogShown=true") Add
-  v-list.mt-8
-    template(
-      v-for="(interview, index) in list"
-    )
-      v-list-item(
-        @click="openInterview(interview)"
+    v-btn(
+      @click="isDialogShown=true"
+      color="pink"
+      class="text-white"
+    ) Add
+  v-card.mt-8
+    v-list.pa-0
+      template(
+        v-for="(interview, index) in list"
       )
-        v-list-item-title
-          .d-flex.align-center
-            div {{ interview.title }}
-            v-spacer
-            v-btn(
-              @click.stop="remove(interview)"
-              :icon="mdiClose"
-              variant="text"
-            )
-      v-divider(
-        v-if="index < list.length - 1"
-        :key="index"
-      )
+        v-list-item(
+          @click="openInterview(interview)"
+        )
+          v-list-item-title
+            .d-flex.align-center
+              div {{ interview.title }}
+              v-spacer
+              v-btn(
+                @click.stop="remove(interview)"
+                :icon="mdiClose"
+                variant="text"
+              )
+        v-divider(
+          v-if="index < list.length - 1"
+          :key="index"
+        )
 
   v-dialog(
     v-model="isDialogShown"
@@ -33,12 +38,12 @@ div
       v-card-text
         .text-h5 New interview
         v-text-field.mt-4(
-          label="Title"
+          label="Name"
           v-model="title"
         )
         v-btn(
           @click="add"
-          :disabled="!title"
+          :disabled="title.length < 4"
           color="blue"
         )
           .text-white Create
@@ -81,7 +86,7 @@ function remove (interview: InterviewModel) {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 .create-card
   width 400px
 </style>
