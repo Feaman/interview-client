@@ -4,7 +4,7 @@ div
     .text-h3 Interviews
     v-spacer
     v-btn(
-      @click="isDialogShown=true"
+      @click="openDialog"
       color="pink"
       class="text-white"
     ) Add
@@ -31,6 +31,7 @@ div
         )
 
   v-dialog(
+    @close="closeDialog"
     v-model="isDialogShown"
     width="400"
   )
@@ -67,6 +68,11 @@ getList()
 
 function openInterview (interview) {
   useRouter().push({ name: 'interview-id', params: { id: interview.id } })
+}
+
+function openDialog () {
+  title.value = ''
+  isDialogShown.value = true
 }
 
 async function add () {

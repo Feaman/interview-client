@@ -18,7 +18,7 @@
         "taskText": "function test () { console.log(a) }; test()",
         "items": []
       },
-      { "id": "7df8df7", "title": "Promise", "items": [] },
+      { "id": "7df8df7", "title": "Promise", "url": "https://pavlo.ru/images/interview/8.png", "items": [] },
       { "id": "7df8df7", "title": "Async/await", "items": [] },
       {
         "id": "7df8df7",

@@ -1,5 +1,5 @@
-import BaseService from "./base"
-import InterviewModel, { IInterview } from "~~/models/interview"
+import BaseService from './base'
+import InterviewModel, { IInterview } from '~~/models/interview'
 
 export default class InterviewService extends BaseService {
   static async getList () {
