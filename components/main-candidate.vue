@@ -1,6 +1,6 @@
 <template lang="pug">
-.interview.fill-height.d-flex.flex-column
-  .interview__header
+.candidate.fill-height.d-flex.flex-column
+  .candidate__header
     .d-flex.align-center
       v-btn(@click="$router.push('/')" color="blue" class="text-white") List
       v-switch.ml-8(
@@ -10,30 +10,37 @@
         hide-details
         inset
       )
+      v-progress-circular(
+        v-if="isCandidateLoading"
+        color="purple"
+        :size="20"
+        indeterminate
+      )
+      main-user
     .mt-4
       .text-h3(
         v-if="isViewMode"
-      ) {{ interview.title }}
+      ) {{ candidate.name }}
       v-text-field(
         v-else
-        @update:modelValue="setTitle"
-        :modelValue="interview.title"
+        @update:modelValue="setName"
+        :modelValue="candidate.name"
         label="Имя"
       )
       v-spacer
-  .interview__content.elevation-2.rounded-lg.mt-4
+  .candidate__content.elevation-2.rounded-lg.mt-4
     div(
       v-if="isViewMode"
     )
       template(
-        v-for="(question, index) in interview.questions"
+        v-for="(question, index) in candidate.questions"
       )
         v-list.pa-0
           question-view(
             :question="question"
           )
           v-divider(
-            v-if="index < interview.questions.length - 1"
+            v-if="index < candidate.questions.length - 1"
             :key="index"
           )
         v-list.pa-0(
@@ -56,7 +63,7 @@
       v-expansion-panels
         v-expansion-panels
           question-edit(
-            v-for="question in interview.questions"
+            v-for="question in candidate.questions"
             @update:comment="setComment"
             @update:status="setStatus"
             :question="question "
@@ -64,15 +71,17 @@
 </template>
 
 <script setup lang="ts">
-import InterviewModel from '~~/models/interview'
-import QuestionModel from '~~/models/question'
+import CandidateModel from '~~/models/candidate-model'
+import QuestionModel from '~~/models/question-model'
+import { isCandidateLoading } from '~~/compositions/loaders'
 
 const emit = defineEmits<
-  {(name: 'update:comment', question: QuestionModel, comment: string): void
-  (name: 'update:title', title: string): void
-  (name: 'update:status', question: QuestionModel, status: string): void }>()
+  {(eventName: 'update:comment', question: QuestionModel, comment: string): void
+  (eventName: 'update:name', name: string): void
+  (eventName: 'update:status', question: QuestionModel, status: string): void }>()
+
 const props = defineProps({
-  interview: { type: InterviewModel, required: true },
+  candidate: { type: CandidateModel, required: true },
 })
 const isViewMode = ref(false)
 
@@ -80,8 +89,8 @@ function setComment (question: QuestionModel, comment: string) {
   emit('update:comment', question, comment)
 }
 
-function setTitle (title: string) {
-  emit('update:title', title)
+function setName (name: string) {
+  emit('update:name', name)
 }
 
 function setStatus (question: QuestionModel, status: string) {
@@ -90,8 +99,8 @@ function setStatus (question: QuestionModel, status: string) {
 </script>
 
 <style scoped lang="stylus">
-.interview
-  .interview__content
+.candidate
+  .candidate__content
     overflow auto
   .v-text-field :deep(input)
     font-size 44px

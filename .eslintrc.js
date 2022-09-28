@@ -19,13 +19,15 @@ module.exports = {
     '@typescript-eslint'
   ],
   rules: {
+    '@typescript-eslint/no-unused-vars': 'off',
+    '@typescript-eslint/no-empty-function': 'off',
+
     // allow trailing comma
     'comma-dangle': ['error', 'only-multiline'],
 
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
 
-    '@typescript-eslint/no-unused-vars': 'off',
     'no-use-before-define': 'off',
   }
 }

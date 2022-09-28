@@ -18,7 +18,12 @@
         "taskText": "function test () { console.log(a) }; test()",
         "items": []
       },
-      { "id": "7df8df7", "title": "Promise", "url": "https://pavlo.ru/images/interview/8.png", "items": [] },
+      {
+        "id": "7df8df7",
+        "title": "Promise",
+        "taskLink": { "title": "Promises", "url": "https://pavlo.ru/images/interview/8.png" },
+        "items": []
+      },
       { "id": "7df8df7", "title": "Async/await", "items": [] },
       {
         "id": "7df8df7",
@@ -27,6 +32,7 @@
         "items": []
       },
       { "id": "7df8df7", "title": "REST (GET, POST, PUT, PATCH, DELETE)", "items": [] },
+      { "id": "7df8df7", "title": "CORS", "items": [] },
       { "id": "7df8df7", "title": "Наследование (прототипное)", "items": [] },
       { "id": "7df8df7", "title": "Классы. ООП.", "items": [] },
       { "id": "7df8df7", "title": "Коллекции: Map и Set", "items": [] },

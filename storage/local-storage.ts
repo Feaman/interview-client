@@ -1,4 +1,4 @@
-import { IStorage } from "./storage"
+import { IStorage } from './storage'
 
 export default class LocalStorage implements IStorage {
   static LOCAL_STORAGE_KEY = '__interview-app-for-interviewer__'
