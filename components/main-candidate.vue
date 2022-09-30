@@ -16,7 +16,6 @@
         :size="20"
         indeterminate
       )
-      main-user
     .mt-4
       .text-h3(
         v-if="isViewMode"

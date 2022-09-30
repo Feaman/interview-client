@@ -19,17 +19,13 @@ export default class BaseService {
       isConfigLoading.value = true
       const data = await this.api.getConfig()
       this.handleInitData(data)
+    } finally {
       isConfigLoading.value = false
-    } catch (error) {
-
     }
   }
 
   static handleInitData (data: ConfigObject) {
-    return new Promise((resolve) => {
-      user.value = new UserModel(data.user)
-      candidates.value = data.candidates.map(candidateData => new CandidateModel(candidateData))
-      resolve('')
-    })
+    user.value = new UserModel(data.user)
+    candidates.value = data.candidates.map(candidateData => new CandidateModel(candidateData))
   }
 }

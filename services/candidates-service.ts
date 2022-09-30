@@ -11,20 +11,28 @@ export default class CandidateService extends BaseService {
       isCandidateLoading.value = false
       return new CandidateModel(candidateData)
     } catch (error) {
-      console.error(error)
+      throw createError({ fatal: true, message: error.message })
     }
   }
 
   static async create (name: string, data: string) {
-    isCandidateLoading.value = true
-    const candidateData = await this.api.createCandidate(name, data)
-    isCandidateLoading.value = false
-    return new CandidateModel(candidateData)
+    try {
+      isCandidateLoading.value = true
+      const candidateData = await this.api.createCandidate(name, data)
+      isCandidateLoading.value = false
+      return new CandidateModel(candidateData)
+    } catch (error) {
+      throw createError({ fatal: true, message: error.message })
+    }
   }
 
   static async remove (candidate: CandidateModel) {
-    isCandidateLoading.value = true
-    await this.api.removeCandidate(candidate)
-    isCandidateLoading.value = false
+    try {
+      isCandidateLoading.value = true
+      await this.api.removeCandidate(candidate)
+      isCandidateLoading.value = false
+    } catch (error) {
+      throw createError({ fatal: true, message: error.message })
+    }
   }
 }

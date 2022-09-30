@@ -1,12 +1,23 @@
 <template lang="pug">
-.user.text-right
+.user.d-flex.justify-end.align-center
   div {{ user.firstName }} {{ user.secondName }}
-  .text-grey {{ user.email }}
+  div.text-grey.font-size-14.ml-2 {{ user.email }}
+  v-btn.ml-2(
+    @click="logout"
+    color="white"
+    size="x-small"
+    :icon="mdiLogoutVariant"
+  )
 </template>
 
 <script setup lang="ts">
-import UserModel from '~~/models/user-model'
+import { mdiLogoutVariant } from '@mdi/js'
 import { user } from '~/compositions/users'
+import UsersService from '~~/services/users-service'
+
+function logout () {
+  UsersService.logout()
+}
 </script>
 
 <style scoped lang="stylus">

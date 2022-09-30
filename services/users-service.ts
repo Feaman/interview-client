@@ -11,10 +11,14 @@ export interface ConfigObject {
 export default class UsersService extends BaseService {
   static AUTH_TOKEN_NAME = 'auth-token'
 
-  static login (email: string, password: string) {
-    return this.api.login(email, password)
-      .then((data: ConfigObject) => this.auth(data))
-      .then(() => { this.navigateTo('/') })
+  static async login (email: string, password: string) {
+    try {
+      const data = await this.api.login(email, password)
+      this.auth(data)
+      this.navigateTo('/')
+    } catch (error) {
+      throw createError({ fatal: true, message: error.message })
+    }
   }
 
   static logout () {
@@ -22,13 +26,18 @@ export default class UsersService extends BaseService {
     this.navigateTo('/login')
   }
 
-  static register (email: string, password: string, firstName: string, secondName: string) {
-    return this.api.register(email, password, firstName, secondName)
-      .then((data: ConfigObject) => this.auth(data))
+  static async register (email: string, password: string, firstName: string, secondName: string) {
+    try {
+      const data = await this.api.register(email, password, firstName, secondName)
+      this.auth(data)
+      this.navigateTo('/')
+    } catch (error) {
+      throw createError({ fatal: true, message: error.message })
+    }
   }
 
   static auth (data: ConfigObject) {
     this.storage.set({ [this.AUTH_TOKEN_NAME]: data.token })
-    return BaseService.handleInitData(data)
+    BaseService.handleInitData(data)
   }
 }

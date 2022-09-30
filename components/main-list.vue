@@ -3,7 +3,6 @@ div
   .d-flex.flex-center
     .text-h3 Candidates
     v-spacer
-    main-user
     v-btn.ml-6(
       @click="openDialog"
       color="pink"

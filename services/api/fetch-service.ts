@@ -4,38 +4,29 @@ import UsersService from '../users-service'
 export default class FetchService extends BaseService {
   URL = 'https://api.interview.pavlo.ru/'
 
-  async request (path: string, data: object | undefined = undefined, method = 'get'): Promise<any> {
-    let result
-    try {
-      result = await useFetch(`${this.URL}${path}`, {
-        method,
-        body: JSON.stringify(data),
-        initialCache: false,
-        async onRequest ({ options }) {
-          const token = await BaseService.storage.get(UsersService.AUTH_TOKEN_NAME)
-          options.headers = {} as { [key: string]: string }
-          if (token) {
-            options.headers.authorization = `Bearer ${token}`
-          }
-        },
-        onResponseError ({ request, response, options }) {
-          return new Promise((resolve) => {
-            if (response.status === 401) {
-              BaseService.navigateTo('/login')
-            }
-            resolve()
-          })
-        },
-      })
-      if (!result.data.value) {
-        throw createError({ message: 'Wrong api data', fatal: true })
+  async request (path: string, incomingData: object | undefined = undefined, method = 'get'): Promise<any> {
+    const { data, error } = await useFetch(`${this.URL}${path}`, {
+      method,
+      body: JSON.stringify(incomingData),
+      initialCache: false,
+      async onRequest ({ options }) {
+        const token = await BaseService.storage.get(UsersService.AUTH_TOKEN_NAME)
+        options.headers = {} as { [key: string]: string }
+        if (token) {
+          options.headers.authorization = `Bearer ${token}`
+        }
+      },
+    })
+    if (error.value) {
+      if (error.value?.response?.status === 401) {
+        await BaseService.navigateTo('/login')
+        throw error.value
+      } else {
+        throw error.value
       }
-    } catch (error) {
-      error.fatal = true
-      throw createError(error)
     }
 
-    return result.data.value
+    return data.value
   }
 
   get (path: string): Promise<any> {
