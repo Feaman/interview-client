@@ -24,24 +24,23 @@ v-expansion-panel
       size="x-small"
     )
   v-expansion-panel-text
-    .d-flex.align-center.mt-4(
-      v-if="question.taskLink"
-    )
-      NuxtLink.font-size-24.ml-1(
-        :to="question.taskLink.url"
-        target="_blank"
-      )
-        .d-flex.align-center
-          v-icon(
-            :icon="mdiOpenInNew"
-            size="x-small"
-          )
-          .ml-1 {{ question.taskLink.title }}
-      v-btn.ml-4.text-white(
-        @click="copyToClipboard(question.taskLink.url)"
-        size="small"
-        color="pink"
-      ) copy
+    template(v-if="question.taskLinks?.length")
+      .d-flex.align-center.mt-2(v-for="taskLink in question.taskLinks")
+        NuxtLink.font-size-24.ml-1(
+          :to="taskLink.url"
+          target="_blank"
+        )
+          .d-flex.align-center
+            v-icon(
+              :icon="mdiOpenInNew"
+              size="x-small"
+            )
+            .ml-1 {{ taskLink.title }}
+        v-btn.ml-4.text-white(
+          @click="copyToClipboard(taskLink.url)"
+          size="small"
+          color="pink"
+        ) copy
     .d-flex.align-center.mt-4(
       v-if="question.taskText"
     )

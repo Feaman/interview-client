@@ -1,5 +1,7 @@
 <template lang="pug">
-.user.d-flex.justify-end.align-center
+.user.d-flex.justify-end.align-center(
+  v-if="user"
+)
   div {{ user.firstName }} {{ user.secondName }}
   div.text-grey.font-size-14.ml-2 {{ user.email }}
   v-btn.ml-2(

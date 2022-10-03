@@ -19,6 +19,8 @@ export default class BaseService {
       isConfigLoading.value = true
       const data = await this.api.getConfig()
       this.handleInitData(data)
+    } catch (error) {
+      this.handleError(error)
     } finally {
       isConfigLoading.value = false
     }
@@ -27,5 +29,14 @@ export default class BaseService {
   static handleInitData (data: ConfigObject) {
     user.value = new UserModel(data.user)
     candidates.value = data.candidates.map(candidateData => new CandidateModel(candidateData))
+  }
+
+  static handleError (error: any) {
+    if (error.response?.status === 401) {
+      BaseService.navigateTo('/login')
+      throw error
+    } else {
+      throw error
+    }
   }
 }

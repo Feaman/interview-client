@@ -11,7 +11,7 @@ export default class CandidateService extends BaseService {
       isCandidateLoading.value = false
       return new CandidateModel(candidateData)
     } catch (error) {
-      throw createError({ fatal: true, message: error.message })
+      this.handleError(error)
     }
   }
 
@@ -22,7 +22,7 @@ export default class CandidateService extends BaseService {
       isCandidateLoading.value = false
       return new CandidateModel(candidateData)
     } catch (error) {
-      throw createError({ fatal: true, message: error.message })
+      this.handleError(error)
     }
   }
 
@@ -32,7 +32,7 @@ export default class CandidateService extends BaseService {
       await this.api.removeCandidate(candidate)
       isCandidateLoading.value = false
     } catch (error) {
-      throw createError({ fatal: true, message: error.message })
+      this.handleError(error)
     }
   }
 }

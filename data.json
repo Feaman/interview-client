@@ -10,7 +10,12 @@
     "title": "JS",
     "items": [
       { "id": "7df8df7", "title": "Типы данных", "items": [] },
-      { "id": "7df8df7", "title": "Ссылочность", "items": [] },
+      {
+        "id": "7df8df7",
+        "title": "Ссылочность",
+        "taskLinks": [{ "title": "Ссылочность", "url": "https://pavlo.ru/images/interview/9.png" }],
+        "items": []
+      },
       { "id": "7df8df7", "title": "var let const", "items": [] },
       {
         "id": "7df8df7",
@@ -21,14 +26,17 @@
       {
         "id": "7df8df7",
         "title": "Promise",
-        "taskLink": { "title": "Promises", "url": "https://pavlo.ru/images/interview/8.png" },
+        "taskLinks": [{ "title": "Promises", "url": "https://pavlo.ru/images/interview/8.png" }],
         "items": []
       },
       { "id": "7df8df7", "title": "Async/await", "items": [] },
       {
         "id": "7df8df7",
         "title": "Eventloop",
-        "taskLink": { "title": "Event loop", "url": "https://pavlo.ru/images/interview/2.png" },
+        "taskLinks": [
+          { "title": "Event loop 1", "url": "https://pavlo.ru/images/interview/10.png" },
+          { "title": "Event loop 2", "url": "https://pavlo.ru/images/interview/2.png" }
+        ],
         "items": []
       },
       { "id": "7df8df7", "title": "REST (GET, POST, PUT, PATCH, DELETE)", "items": [] },
@@ -39,13 +47,13 @@
       {
         "id": "7df8df7",
         "title": "События (всплытие и погружение)",
-        "taskLink": { "title": "Всплытие", "url": "https://pavlo.ru/images/interview/3.png" },
+        "taskLinks": [{ "title": "Всплытие", "url": "https://pavlo.ru/images/interview/3.png" }],
         "items": []
       },
       {
         "id": "7df8df7",
         "title": "Передача контекста (функции bind apply call)",
-        "taskLink": { "title": "Передача контекста", "url": "https://pavlo.ru/images/interview/4.png" },
+        "taskLinks": [{ "title": "Передача контекста", "url": "https://pavlo.ru/images/interview/4.png" }],
         "items": []
       },
       { "id": "7df8df7", "title": "try/catch/finally.", "items": [] },
@@ -67,14 +75,14 @@
       {
         "id": "7df8df7",
         "title": "Хуки жизненного цикла",
-        "taskLink": { "title": "Хуки жизненного цикла", "url": "https://pavlo.ru/images/interview/6.png" },
+        "taskLinks": [{ "title": "Хуки жизненного цикла", "url": "https://pavlo.ru/images/interview/6.png" }],
         "items": []
       },
       { "id": "7df8df7", "title": "Как можно использовать beforeDestroyed?", "items": [] },
       {
         "id": "7df8df7",
         "title": "Реактивность, data",
-        "taskLink": { "title": "Реактивность", "url": "https://pavlo.ru/images/interview/7.png" },
+        "taskLinks": [{ "title": "Реактивность", "url": "https://pavlo.ru/images/interview/7.png" }],
         "items": []
       },
       { "id": "7df8df7", "title": "Что если новые данные приходят после рендеринга (Vue.set())?", "items": [] },
@@ -108,7 +116,7 @@
       {
         "id": "7df8df7",
         "title": "Анимации (transition, keyframes).",
-        "taskLink": { "title": "Анимации", "url": "https://pavlo.ru/images/interview/1.png" },
+        "taskLinks": [{ "title": "Анимации", "url": "https://pavlo.ru/images/interview/1.png" }],
         "items": []
       }
     ]

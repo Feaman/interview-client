@@ -4,7 +4,7 @@ export interface IQuestion {
   comment?: string
   items: IQuestion[]
   status?: string
-  taskLink?: { title: string, url: string }
+  taskLinks?: { title: string, url: string }[]
   taskText?: string
 }
 
@@ -14,7 +14,7 @@ export default class QuestionModel {
   comment: string
   items: QuestionModel[]
   status: string
-  taskLink: { title: string, url: string } | undefined
+  taskLinks: { title: string, url: string }[]
   taskText: string
 
   static STATUS_SUPER = 'STATUS_SUPER'
@@ -34,7 +34,7 @@ export default class QuestionModel {
     this.comment = data.comment || ''
     this.status = data.status || ''
     this.taskText = data.taskText || ''
-    this.taskLink = data.taskLink || undefined
+    this.taskLinks = data.taskLinks || []
     this.handleItems(data.items)
   }
 

@@ -17,7 +17,7 @@ export default class UsersService extends BaseService {
       this.auth(data)
       this.navigateTo('/')
     } catch (error) {
-      throw createError({ fatal: true, message: error.message })
+      this.handleError(error)
     }
   }
 
@@ -32,7 +32,7 @@ export default class UsersService extends BaseService {
       this.auth(data)
       this.navigateTo('/')
     } catch (error) {
-      throw createError({ fatal: true, message: error.message })
+      this.handleError(error)
     }
   }
 

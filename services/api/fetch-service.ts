@@ -18,12 +18,7 @@ export default class FetchService extends BaseService {
       },
     })
     if (error.value) {
-      if (error.value?.response?.status === 401) {
-        await BaseService.navigateTo('/login')
-        throw error.value
-      } else {
-        throw error.value
-      }
+      throw error.value
     }
 
     return data.value
