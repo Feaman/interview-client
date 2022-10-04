@@ -1,7 +1,7 @@
 <template lang="pug">
-v-expansion-panel
+v-expansion-panel.question-edit
   v-expansion-panel-title.d-flex
-    .text-h5(
+    .question-edit__title(
       :class="question.getColorClass()"
     ) {{ question.title }}
     v-spacer
@@ -108,7 +108,23 @@ function copyToClipboard (string: string) {
 </script>
 
 <style lang="stylus" scoped>
-.v-btn :deep(.v-icon)
-  min-width 24px
-  min-height 24px
+.question-edit
+  .v-btn :deep(.v-icon)
+    min-width 24px
+    min-height 24px
+
+  .question-edit__title
+    font-size 24px
+
+  @media (max-width: 768px)
+    .question-edit__title
+      font-size 20px
+
+  @media (max-width: 600px)
+    .question-edit__title, :deep(.v-field__input)
+      font-size 14px
+
+    :deep(.v-field__input)
+      line-height 16px
+
 </style>

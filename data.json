@@ -1,127 +1,104 @@
 [
   {
-    "id": "7df8df7",
     "title": "Общее",
-    "items": [{ "id": "7df8df7", "title": "С нуля ли", "items": [] }]
+    "items": [{ "title": "С нуля ли" }]
   },
-  { "id": "7df8df7", "title": "Git. Merge/Rebase?", "items": [] },
   {
-    "id": "7df8df7",
+    "title": "Git",
+    "items": [{ "title": "Merge, Rebase" }, { "title": "Git flow" }]
+  },
+  {
     "title": "JS",
     "items": [
-      { "id": "7df8df7", "title": "Типы данных", "items": [] },
+      { "title": "Типы данных" },
       {
-        "id": "7df8df7",
         "title": "Ссылочность",
-        "taskLinks": [{ "title": "Ссылочность", "url": "https://pavlo.ru/images/interview/9.png" }],
-        "items": []
+        "taskLinks": [{ "title": "Ссылочность", "url": "https://pavlo.ru/images/interview/9.png" }]
       },
-      { "id": "7df8df7", "title": "var let const", "items": [] },
+      { "title": "var let const" },
       {
-        "id": "7df8df7",
         "title": "Замыкания (лексическое окружение)",
-        "taskText": "function test () { console.log(a) }; test()",
-        "items": []
+        "taskText": "function test () { console.log(a) }; test()"
       },
       {
-        "id": "7df8df7",
         "title": "Promise",
-        "taskLinks": [{ "title": "Promises", "url": "https://pavlo.ru/images/interview/8.png" }],
-        "items": []
+        "taskLinks": [{ "title": "Promises", "url": "https://pavlo.ru/images/interview/8.png" }]
       },
-      { "id": "7df8df7", "title": "Async/await", "items": [] },
+      { "title": "Async/await" },
       {
-        "id": "7df8df7",
         "title": "Eventloop",
         "taskLinks": [
           { "title": "Event loop 1", "url": "https://pavlo.ru/images/interview/10.png" },
           { "title": "Event loop 2", "url": "https://pavlo.ru/images/interview/2.png" }
-        ],
-        "items": []
+        ]
       },
-      { "id": "7df8df7", "title": "REST (GET, POST, PUT, PATCH, DELETE)", "items": [] },
-      { "id": "7df8df7", "title": "CORS", "items": [] },
-      { "id": "7df8df7", "title": "Наследование (прототипное)", "items": [] },
-      { "id": "7df8df7", "title": "Классы. ООП.", "items": [] },
-      { "id": "7df8df7", "title": "Коллекции: Map и Set", "items": [] },
+      { "title": "REST (GET, POST, PUT, PATCH, DELETE)" },
+      { "title": "CORS" },
+      { "title": "Наследование (прототипное)" },
+      { "title": "Классы. ООП." },
+      { "title": "Коллекции: Map и Set" },
       {
-        "id": "7df8df7",
         "title": "События (всплытие и погружение)",
-        "taskLinks": [{ "title": "Всплытие", "url": "https://pavlo.ru/images/interview/3.png" }],
-        "items": []
+        "taskLinks": [{ "title": "Всплытие", "url": "https://pavlo.ru/images/interview/3.png" }]
       },
       {
-        "id": "7df8df7",
         "title": "Передача контекста (функции bind apply call)",
-        "taskLinks": [{ "title": "Передача контекста", "url": "https://pavlo.ru/images/interview/4.png" }],
-        "items": []
+        "taskLinks": [{ "title": "Передача контекста", "url": "https://pavlo.ru/images/interview/4.png" }]
       },
-      { "id": "7df8df7", "title": "try/catch/finally.", "items": [] },
-      { "id": "7df8df7", "title": "Работа с DOM (примеры)", "items": [] },
+      { "title": "try/catch/finally." },
+      { "title": "Работа с DOM (примеры)" },
       {
-        "id": "7df8df7",
-        "title": "Клонирование объектов (глубокое и поверхностное)",
-        "items": []
+        "title": "Клонирование объектов (глубокое и поверхностное)"
       },
-      { "id": "7df8df7", "title": "Обращение к API (Axios?)", "items": [] },
-      { "id": "7df8df7", "title": "Как используете devTools. debugger.", "items": [] }
+      { "title": "Обращение к API (Axios?)" },
+      { "title": "Как используете devTools. debugger." }
     ]
   },
-  { "id": "7df8df7", "title": "TypeScript (интерфейсы/типы, классы, дженерики)", "items": [] },
+  { "title": "TypeScript (интерфейсы/типы, классы, дженерики)" },
   {
-    "id": "7df8df7",
     "title": "Vue",
     "items": [
       {
-        "id": "7df8df7",
         "title": "Хуки жизненного цикла",
-        "taskLinks": [{ "title": "Хуки жизненного цикла", "url": "https://pavlo.ru/images/interview/6.png" }],
-        "items": []
+        "taskLinks": [{ "title": "Хуки жизненного цикла", "url": "https://pavlo.ru/images/interview/6.png" }]
       },
-      { "id": "7df8df7", "title": "Как можно использовать beforeDestroyed?", "items": [] },
+      { "title": "Как можно использовать beforeDestroyed?" },
       {
-        "id": "7df8df7",
         "title": "Реактивность, data",
-        "taskLinks": [{ "title": "Реактивность", "url": "https://pavlo.ru/images/interview/7.png" }],
-        "items": []
+        "taskLinks": [{ "title": "Реактивность", "url": "https://pavlo.ru/images/interview/7.png" }]
       },
-      { "id": "7df8df7", "title": "Что если новые данные приходят после рендеринга (Vue.set())?", "items": [] },
-      { "id": "7df8df7", "title": "Router", "items": [] },
-      { "id": "7df8df7", "title": "Хуки роутера (глобальные, роута и компонента)", "items": [] },
-      { "id": "7df8df7", "title": "Vuex (модули Vuex)", "items": [] },
-      { "id": "7df8df7", "title": "Зачем используется vuex (вместо проброса)", "items": [] },
-      { "id": "7df8df7", "title": "Директивы", "items": [] },
-      { "id": "7df8df7", "title": "Миксины", "items": [] },
-      { "id": "7df8df7", "title": "computed vs watch vs methods", "items": [] },
-      { "id": "7df8df7", "title": "Слоты, их типы и проброс данных", "items": [] },
-      { "id": "7df8df7", "title": "EventBus", "items": [] },
-      { "id": "7df8df7", "title": "$nextTick()", "items": [] },
-      { "id": "7df8df7", "title": "SSR", "items": [] },
-      { "id": "7df8df7", "title": "Библиотеки компонентов (vuetify, ...)", "items": [] }
+      { "title": "Что если новые данные приходят после рендеринга (Vue.set())?" },
+      { "title": "Router" },
+      { "title": "Хуки роутера (глобальные, роута и компонента)" },
+      { "title": "Vuex (модули Vuex)" },
+      { "title": "Зачем используется vuex (вместо проброса)" },
+      { "title": "Директивы" },
+      { "title": "Миксины" },
+      { "title": "computed vs watch vs methods" },
+      { "title": "Слоты, их типы и проброс данных" },
+      { "title": "$nextTick()" },
+      { "title": "SSR" }
     ]
   },
   {
-    "id": "7df8df7",
     "title": "HTML/CSS",
     "items": [
-      { "id": "7df8df7", "title": "Препроцессоры (что использовалось?)", "items": [] },
-      { "id": "7df8df7", "title": "div и span.", "items": [] },
-      { "id": "7df8df7", "title": "Позиционирование. Translate VS Position.", "items": [] },
-      { "id": "7df8df7", "title": "Flex. Как спозиционировать элемент по центру внутри блока по всем осям?", "items": [] },
-      { "id": "7df8df7", "title": "Grid", "items": [] },
-      { "id": "7df8df7", "title": "BEM", "items": [] },
-      { "id": "7df8df7", "title": "Как сделать чтобы footer сайта всегда был снизу?", "items": [] },
-      { "id": "7df8df7", "title": "Селекторы. Специфичность (приоритетность).", "items": [] },
-      { "id": "7df8df7", "title": "visibility:hidden VS opacity:0 VS display:none", "items": [] },
+      { "title": "Препроцессоры (что использовалось?)" },
+      { "title": "div и span." },
+      { "title": "Позиционирование. Translate VS Position." },
+      { "title": "Flex. Как спозиционировать элемент по центру внутри блока по всем осям?" },
+      { "title": "Grid" },
+      { "title": "BEM" },
+      { "title": "Как сделать чтобы footer сайта всегда был снизу?" },
+      { "title": "Селекторы. Специфичность (приоритетность)." },
+      { "title": "visibility:hidden VS opacity:0 VS display:none" },
       {
-        "id": "7df8df7",
         "title": "Анимации (transition, keyframes).",
-        "taskLinks": [{ "title": "Анимации", "url": "https://pavlo.ru/images/interview/1.png" }],
-        "items": []
+        "taskLinks": [{ "title": "Анимации", "url": "https://pavlo.ru/images/interview/1.png" }]
       }
     ]
   },
-  { "id": "7df8df7", "title": "Архитектура", "items": [{ "id": "7df8df7", "title": "Паттерны.", "items": [] }] },
-  { "id": "7df8df7", "title": "Vue 3", "items": [] },
-  { "id": "7df8df7", "title": "Чем интересуется, что изучает, что хочет изучить", "items": [] }
+  { "title": "Архитектура", "items": [{ "title": "Паттерны." }] },
+  { "title": "Vue 3" },
+  { "title": "Чем интересуется, что изучает, что хочет изучить" }
 ]

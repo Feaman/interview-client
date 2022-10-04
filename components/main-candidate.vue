@@ -2,8 +2,13 @@
 .candidate.fill-height.d-flex.flex-column
   .candidate__header
     .d-flex.align-center
-      v-btn(@click="$router.push('/')" color="blue" class="text-white") List
-      v-switch.ml-8(
+      v-btn.ml-2(
+        @click.stop="$router.push('/')"
+        :icon="mdiArrowLeft"
+        color="blue-darken-2"
+        size="small"
+      )
+      v-switch.ml-4(
         v-model="isViewMode"
         label="Режим просмотра"
         color="blue"
@@ -33,6 +38,7 @@
     )
       template(
         v-for="(question, index) in candidate.questions"
+        :key="index"
       )
         v-list.pa-0
           question-view(
@@ -47,6 +53,7 @@
         )
           template(
             v-for="(subQuestion, subIndex) in question.items"
+            :key="index"
           )
             question-view(
               :question="subQuestion"
@@ -65,11 +72,13 @@
             v-for="question in candidate.questions"
             @update:comment="setComment"
             @update:status="setStatus"
+            :key="index"
             :question="question "
           )
 </template>
 
 <script setup lang="ts">
+import { mdiArrowLeft } from '@mdi/js'
 import CandidateModel from '~~/models/candidate-model'
 import QuestionModel from '~~/models/question-model'
 import { isCandidateLoading } from '~~/compositions/loaders'
