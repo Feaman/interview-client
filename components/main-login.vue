@@ -57,7 +57,7 @@ async function logIn () {
   try {
     await UsersService.login(email.value, password.value)
   } catch (error) {
-    errorMessage.value = error.message || 'Undefined error'
+    errorMessage.value = error?.data?.message || error.message || 'Undefined error'
   }
 }
 </script>
