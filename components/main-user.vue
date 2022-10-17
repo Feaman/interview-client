@@ -4,12 +4,12 @@
 )
   div {{ user.firstName }} {{ user.secondName }}
   div.text-grey.font-size-14.ml-2 {{ user.email }}
-  v-btn.ml-2(
+  v-btn.logout.ml-2.px-0(
     @click="logout"
     color="white"
-    size="x-small"
-    :icon="mdiLogoutVariant"
+    size="small"
   )
+    v-icon(:icon="mdiLogoutVariant")
 </template>
 
 <script setup lang="ts">
@@ -23,9 +23,7 @@ function logout () {
 </script>
 
 <style scoped lang="stylus">
-.candidate
-  .candidate__content
-    overflow auto
-  .v-text-field :deep(input)
-    font-size 44px
+.user
+  .logout
+    min-width 28px
 </style>

@@ -17,6 +17,12 @@
 import { isConfigLoading } from '~~/compositions/loaders'
 import { user } from '~/compositions/users'
 
+useHead({
+  link: [
+    { rel: 'icon', type: 'image/x-icon', href: '/favicon.png?version=1' },
+  ]
+})
+
 const isLoginRoute = useRoute().name === 'login'
 </script>
 
