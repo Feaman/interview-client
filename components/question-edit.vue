@@ -71,7 +71,7 @@ v-expansion-panel.question-edit
 <script setup lang="ts">
 import copy from 'copy-to-clipboard'
 import { mdiCloudUpload, mdiOpenInNew, mdiEmoticonHappyOutline, mdiEmoticonNeutralOutline, mdiEmoticonSadOutline } from '@mdi/js'
-import QuestionModel from '~~/models/question-model'
+import QuestionModel from '~/models/question-model'
 
 const STATUS_SUPER = QuestionModel.STATUS_SUPER
 const STATUS_NOT_GOOD = QuestionModel.STATUS_NOT_GOOD

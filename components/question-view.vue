@@ -15,7 +15,7 @@ v-list-item.question-view(
 </template>
 
 <script setup lang="ts">
-import QuestionModel from '~~/models/question-model'
+import QuestionModel from '~/models/question-model'
 
 const props = defineProps({
   question: { type: QuestionModel, required: true },

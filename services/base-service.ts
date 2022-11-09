@@ -1,11 +1,11 @@
-import ApiService from './api/api-service'
-import { ConfigObject } from './users-service'
+import { ConfigObject } from '~/services/users-service'
+import ApiService from '~/services/api/api-service'
 import { IStorage } from '~/storage/storage'
-import { user } from '@/compositions/users'
-import { candidates } from '@/compositions/candidates'
-import UserModel from '~~/models/user-model'
-import { isConfigLoading } from '~~/compositions/loaders'
-import CandidateModel from '~~/models/candidate-model'
+import { user } from '~/compositions/users'
+import { candidates } from '~/compositions/candidates'
+import UserModel from '~/models/user-model'
+import { isConfigLoading } from '~/compositions/loaders'
+import CandidateModel from '~/models/candidate-model'
 
 export default class BaseService {
   static error: (errorText: string) => void

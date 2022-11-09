@@ -1,7 +1,7 @@
 import BaseService from './base-service'
 import ApiService from './api/api-service'
-import CandidateModel, { ICandidate } from '~~/models/candidate-model'
-import { isCandidateLoading } from '~~/compositions/loaders'
+import CandidateModel, { ICandidate } from '~/models/candidate-model'
+import { isCandidateLoading } from '~/compositions/loaders'
 
 export default class CandidateService extends BaseService {
   static async update (candidate: CandidateModel) {
@@ -15,15 +15,16 @@ export default class CandidateService extends BaseService {
     }
   }
 
-  static async create (name: string, data: string) {
+  static async create (name: string, data: string): Promise<CandidateModel> {
+    let candidateData
     try {
       isCandidateLoading.value = true
-      const candidateData = await this.api.createCandidate(name, data)
+      candidateData = await this.api.createCandidate(name, data)
       isCandidateLoading.value = false
-      return new CandidateModel(candidateData)
     } catch (error) {
       this.handleError(error)
     }
+    return new CandidateModel(candidateData as ICandidate)
   }
 
   static async remove (candidate: CandidateModel) {

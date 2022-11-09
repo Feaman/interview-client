@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import { mdiLogoutVariant } from '@mdi/js'
 import { user } from '~/compositions/users'
-import UsersService from '~~/services/users-service'
+import UsersService from '~/services/users-service'
 
 function logout () {
   UsersService.logout()

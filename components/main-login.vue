@@ -38,7 +38,7 @@
 </template>
 
 <script setup lang="ts">
-import UsersService from '~~/services/users-service'
+import UsersService from '~/services/users-service'
 
 const valid = ref(false)
 const email = ref('')

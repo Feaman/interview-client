@@ -1,6 +1,6 @@
-import BaseService from '@/services/base-service'
-import { ICandidate } from '~~/models/candidate-model'
-import { IUser } from '~~/models/user-model'
+import BaseService from '~/services/base-service'
+import { ICandidate } from '~/models/candidate-model'
+import { IUser } from '~/models/user-model'
 
 export interface ConfigObject {
   user: IUser,

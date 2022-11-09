@@ -1,4 +1,4 @@
-import QuestionModel, { IQuestion } from '~~/models/question-model'
+import QuestionModel, { IQuestion } from '~/models/question-model'
 
 export interface ICandidate {
   id: string

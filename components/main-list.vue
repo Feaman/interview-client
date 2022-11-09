@@ -9,7 +9,7 @@ div
       class="text-white"
     ) Add
   v-card.mt-8
-    v-list.pa-0
+    v-list#candidates.pa-0
       template(
         v-for="(candidate, index) in candidates"
       )
@@ -74,18 +74,20 @@ div
 
 <script setup lang="ts">
 import { mdiClose } from '@mdi/js'
+import { ref } from 'vue'
+import type { Ref } from 'vue'
 import questions from '~/data.json'
 import CandidateService from '~/services/candidates-service'
 import CandidateModel from '~/models/candidate-model'
-import { user } from '@/compositions/users'
+import { user } from '~/compositions/users'
 import { candidates } from '~/compositions/candidates'
 
 const isDialogShown = ref(false)
 const name = ref('')
 const isRemoveDialogShown = ref(false)
-const candidateToRemove = ref(null)
+const candidateToRemove: Ref<CandidateModel | null> = ref(null)
 
-function openCandidate (candidate) {
+function openCandidate (candidate: CandidateModel) {
   useRouter().push({ name: 'candidate-id', params: { id: String(candidate.id) } })
 }
 
@@ -106,8 +108,9 @@ function openRemoveDialog (candidate: CandidateModel) {
 }
 
 async function removeCandidate () {
-  await CandidateService.remove(candidateToRemove.value)
-  candidates.value = candidates.value.filter(_candidate => _candidate.id !== candidateToRemove.value.id)
+  const candidate = candidateToRemove.value as CandidateModel
+  await CandidateService.remove(candidate)
+  candidates.value = candidates.value.filter(_candidate => _candidate.id !== candidate.id)
   isRemoveDialogShown.value = false
   candidateToRemove.value = null
 }

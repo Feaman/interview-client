@@ -69,7 +69,7 @@
       v-expansion-panels
         v-expansion-panels
           question-edit(
-            v-for="question in candidate.questions"
+            v-for="(question, index) in candidate.questions"
             @update:comment="setComment"
             @update:status="setStatus"
             :key="index"
@@ -79,9 +79,9 @@
 
 <script setup lang="ts">
 import { mdiArrowLeft } from '@mdi/js'
-import CandidateModel from '~~/models/candidate-model'
-import QuestionModel from '~~/models/question-model'
-import { isCandidateLoading } from '~~/compositions/loaders'
+import CandidateModel from '~/models/candidate-model'
+import QuestionModel from '~/models/question-model'
+import { isCandidateLoading } from '~/compositions/loaders'
 
 const emit = defineEmits<
   {(eventName: 'update:comment', question: QuestionModel, comment: string): void

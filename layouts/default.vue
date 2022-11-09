@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { isConfigLoading } from '~~/compositions/loaders'
+import { isConfigLoading } from '~/compositions/loaders'
 import { user } from '~/compositions/users'
 
 useHead({

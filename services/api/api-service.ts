@@ -1,6 +1,6 @@
 import { ConfigObject } from '../users-service'
-import FetchService from '@/services/api/fetch-service'
-import CandidateModel, { ICandidate } from '~~/models/candidate-model'
+import FetchService from '~/services/api/fetch-service'
+import CandidateModel, { ICandidate } from '~/models/candidate-model'
 
 export default class ApiService extends FetchService {
   login (email: string, password: string): Promise<ConfigObject> {

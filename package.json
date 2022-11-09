@@ -5,12 +5,18 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
+    "test": "vitest",
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "nuxt": "3.0.0-rc.8",
+    "@nuxt/test-utils-edge": "^3.0.0-rc.14-27796957.b60f136",
+    "@vitejs/plugin-vue": "^3.2.0",
+    "@vue/test-utils": "^2.2.1",
+    "jsdom": "^20.0.2",
+    "nuxt": "^3.0.0-rc.13",
     "pug": "^3.0.2",
-    "stylus": "^0.59.0"
+    "stylus": "^0.59.0",
+    "vitest": "^0.25.1"
   },
   "dependencies": {
     "@mdi/js": "^7.0.96",
