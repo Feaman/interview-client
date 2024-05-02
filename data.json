@@ -1,104 +1,272 @@
 [
   {
-    "title": "Общее",
-    "items": [{ "title": "С нуля ли" }]
-  },
-  {
     "title": "Git",
-    "items": [{ "title": "Merge, Rebase" }, { "title": "Git flow" }]
-  },
-  {
-    "title": "JS",
+    "comment": "",
+    "status:": "",
+    "taskText": "",
+    "taskLinks": [],
     "items": [
-      { "title": "Типы данных" },
       {
-        "title": "Ссылочность",
-        "taskLinks": [{ "title": "Ссылочность", "url": "https://pavlo.ru/images/interview/9.png" }]
-      },
-      { "title": "var let const" },
-      {
-        "title": "Замыкания (лексическое окружение)",
-        "taskText": "function test () { console.log(a) }; test()"
-      },
-      {
-        "title": "Promise",
-        "taskLinks": [{ "title": "Promises", "url": "https://pavlo.ru/images/interview/8.png" }]
-      },
-      { "title": "Async/await" },
-      {
-        "title": "Eventloop",
-        "taskLinks": [
-          { "title": "Event loop 1", "url": "https://pavlo.ru/images/interview/10.png" },
-          { "title": "Event loop 2", "url": "https://pavlo.ru/images/interview/2.png" }
-        ]
-      },
-      { "title": "REST (GET, POST, PUT, PATCH, DELETE)" },
-      { "title": "CORS" },
-      { "title": "Наследование (прототипное)" },
-      { "title": "Классы. ООП." },
-      { "title": "Коллекции: Map и Set" },
-      {
-        "title": "События (всплытие и погружение)",
-        "taskLinks": [{ "title": "Всплытие", "url": "https://pavlo.ru/images/interview/3.png" }]
-      },
-      {
-        "title": "Передача контекста (функции bind apply call)",
-        "taskLinks": [{ "title": "Передача контекста", "url": "https://pavlo.ru/images/interview/4.png" }]
-      },
-      { "title": "try/catch/finally." },
-      { "title": "Работа с DOM (примеры)" },
-      {
-        "title": "Клонирование объектов (глубокое и поверхностное)"
-      },
-      { "title": "Обращение к API (Axios?)" },
-      { "title": "Как используете devTools. debugger." }
+        "title": "Merge, Rebase",
+        "comment": "",
+        "status:": "",
+        "taskText": "",
+        "taskLinks": [],
+        "items": []
+      }
     ]
   },
-  { "title": "TypeScript (интерфейсы/типы, классы, дженерики)" },
   {
-    "title": "Vue",
+    "title": "Архитектура",
+    "comment": "",
+    "status:": "",
+    "taskText": "",
+    "taskLinks": [],
     "items": [
       {
-        "title": "Хуки жизненного цикла",
-        "taskLinks": [{ "title": "Хуки жизненного цикла", "url": "https://pavlo.ru/images/interview/6.png" }]
-      },
-      { "title": "Как можно использовать beforeDestroyed?" },
-      {
-        "title": "Реактивность, data",
-        "taskLinks": [{ "title": "Реактивность", "url": "https://pavlo.ru/images/interview/7.png" }]
-      },
-      { "title": "Что если новые данные приходят после рендеринга (Vue.set())?" },
-      { "title": "Router" },
-      { "title": "Хуки роутера (глобальные, роута и компонента)" },
-      { "title": "Vuex (модули Vuex)" },
-      { "title": "Зачем используется vuex (вместо проброса)" },
-      { "title": "Директивы" },
-      { "title": "Миксины" },
-      { "title": "computed vs watch vs methods" },
-      { "title": "Слоты, их типы и проброс данных" },
-      { "title": "$nextTick()" },
-      { "title": "SSR" }
+        "title": "SOLID, паттерны [Singleton, Decorator, Fabric]",
+        "comment": "",
+        "status:": "",
+        "taskText": "",
+        "taskLinks": [],
+        "items": []
+      }
     ]
   },
   {
     "title": "HTML/CSS",
+    "comment": "",
+    "status:": "",
+    "taskText": "",
+    "taskLinks": [],
     "items": [
-      { "title": "Препроцессоры (что использовалось?)" },
-      { "title": "div и span." },
-      { "title": "Позиционирование. Translate VS Position." },
-      { "title": "Flex. Как спозиционировать элемент по центру внутри блока по всем осям?" },
-      { "title": "Grid" },
-      { "title": "BEM" },
-      { "title": "Как сделать чтобы footer сайта всегда был снизу?" },
-      { "title": "Селекторы. Специфичность (приоритетность)." },
-      { "title": "visibility:hidden VS opacity:0 VS display:none" },
+      {
+        "title": "div и span.",
+        "comment": "",
+        "status:": "",
+        "taskText": "",
+        "taskLinks": [],
+        "items": []
+      },
+      {
+        "title": "Позиционирование. Translate VS Position.",
+        "comment": "",
+        "status:": "",
+        "taskText": "",
+        "taskLinks": [],
+        "items": []
+      },
+      {
+        "title": "Flex. Как спозиционировать элемент по центру внутри блока по всем осям?",
+        "comment": "",
+        "status:": "",
+        "taskText": "",
+        "taskLinks": [],
+        "items": []
+      },
+      {
+        "title": "Как сделать чтобы footer сайта всегда был снизу?",
+        "comment": "",
+        "status:": "",
+        "taskText": "",
+        "taskLinks": [],
+        "items": []
+      },
+      {
+        "title": "Селекторы. Специфичность (приоритетность).",
+        "comment": "",
+        "status:": "",
+        "taskText": "",
+        "taskLinks": [],
+        "items": []
+      },
+      {
+        "title": "visibility:hidden VS opacity:0 VS display:none",
+        "comment": "",
+        "status:": "",
+        "taskText": "",
+        "taskLinks": [],
+        "items": []
+      },
       {
         "title": "Анимации (transition, keyframes).",
-        "taskLinks": [{ "title": "Анимации", "url": "https://pavlo.ru/images/interview/1.png" }]
+        "comment": "",
+        "status:": "",
+        "taskText": "",
+        "taskLinks": [
+          {
+            "title": "Анимации",
+            "url": "https://pavlo.ru/images/interview/1.png"
+          }
+        ],
+        "items": []
       }
     ]
   },
-  { "title": "Архитектура", "items": [{ "title": "Паттерны." }] },
-  { "title": "Vue 3" },
-  { "title": "Чем интересуется, что изучает, что хочет изучить" }
+  {
+    "title": "JS",
+    "comment": "",
+    "status:": "",
+    "taskText": "",
+    "taskLinks": [],
+    "items": [
+      {
+        "title": "Типы данных",
+        "comment": "",
+        "status:": "",
+        "taskText": "",
+        "taskLinks": [],
+        "items": []
+      },
+      {
+        "title": "Ссылочность",
+        "comment": "",
+        "status:": "",
+        "taskText": "",
+        "taskLinks": [
+          {
+            "title": "Ссылочность",
+            "url": "https://pavlo.ru/images/interview/9.png"
+          }
+        ],
+        "items": []
+      },
+      {
+        "title": "var let const",
+        "comment": "",
+        "status:": "",
+        "taskText": "",
+        "taskLinks": [],
+        "items": []
+      },
+      {
+        "title": "Замыкания (лексическое окружение)",
+        "comment": "",
+        "status:": "",
+        "taskText": "function test () { console.log(a) }; test()",
+        "taskLinks": [],
+        "items": []
+      },
+      {
+        "title": "Eventloop",
+        "comment": "1 7 3 5 2 6 4",
+        "status:": "",
+        "taskText": "",
+        "taskLinks": [
+          {
+            "title": "Event loop (1 7 3 5 2 6 4)",
+            "url": "https://pavlo.ru/images/interview/10.png"
+          }
+        ],
+        "items": []
+      },
+      {
+        "title": "Наследование (прототипное)",
+        "comment": "",
+        "status:": "",
+        "taskText": "",
+        "taskLinks": [],
+        "items": []
+      },
+      {
+        "title": "Функции-конструкторы",
+        "comment": "",
+        "status:": "",
+        "taskText": "",
+        "taskLinks": [],
+        "items": []
+      },
+      {
+        "title": "typeof, instanceof",
+        "comment": "",
+        "status:": "",
+        "taskText": "",
+        "taskLinks": [],
+        "items": []
+      },
+      {
+        "title": "Передача контекста (функции bind apply call)",
+        "comment": "",
+        "status:": "",
+        "taskText": "",
+        "taskLinks": [
+          {
+            "title": "Передача контекста",
+            "url": "https://pavlo.ru/images/interview/4.png"
+          }
+        ],
+        "items": []
+      },
+      {
+        "title": "Promise",
+        "comment": "",
+        "status:": "",
+        "taskText": "",
+        "taskLinks": [
+          {
+            "title": "Promises",
+            "url": "https://pavlo.ru/images/interview/8.png"
+          },
+          {
+            "title": "Promises + Event loop",
+            "url": "https://pavlo.ru/images/interview/2.png"
+          }
+        ],
+        "items": []
+      },
+      {
+        "title": "Async/await",
+        "comment": "",
+        "status:": "",
+        "taskText": "",
+        "taskLinks": [],
+        "items": []
+      },
+      {
+        "title": "Работа с DOM (примеры). Отличие element от text.",
+        "comment": "",
+        "status:": "",
+        "taskText": "",
+        "taskLinks": [],
+        "items": []
+      },
+      {
+        "title": "События (всплытие и погружение)",
+        "comment": "",
+        "status:": "",
+        "taskText": "",
+        "taskLinks": [
+          {
+            "title": "Всплытие",
+            "url": "https://pavlo.ru/images/interview/3.png"
+          }
+        ],
+        "items": []
+      },
+      {
+        "title": "Операторы REST, SPREAD.",
+        "comment": "",
+        "status:": "",
+        "taskText": "",
+        "taskLinks": [],
+        "items": []
+      },
+      {
+        "title": "Коллекции: Map и Set",
+        "comment": "",
+        "status:": "",
+        "taskText": "",
+        "taskLinks": [],
+        "items": []
+      },
+      {
+        "title": "Зачем нужен и как использовать devTools. debugger.",
+        "comment": "",
+        "status:": "",
+        "taskText": "",
+        "taskLinks": [],
+        "items": []
+      }
+    ]
+  }
 ]
