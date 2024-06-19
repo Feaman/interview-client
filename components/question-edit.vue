@@ -25,6 +25,15 @@ v-expansion-panel.question-edit
     )
   v-expansion-panel-text
     template(v-if="question.taskLinks?.length")
+      .d-flex.align-center.mt-4(
+        v-if="question.taskText"
+      )
+        .bg-grey-lighten-3.rounded.px-2.py-1 {{ question.taskText }}
+        v-btn.text-white.ml-4(
+          @click="copyToClipboard(question.taskText)"
+          size="small"
+          color="pink"
+        ) copy
       .d-flex.align-center.mt-2(v-for="taskLink in question.taskLinks")
         NuxtLink.font-size-24.ml-1(
           :to="taskLink.url"
@@ -41,15 +50,6 @@ v-expansion-panel.question-edit
           size="small"
           color="pink"
         ) copy
-    .d-flex.align-center.mt-4(
-      v-if="question.taskText"
-    )
-      .bg-grey-lighten-3.rounded.px-2.py-1 {{ question.taskText }}
-      v-btn.text-white.ml-4(
-        @click="copyToClipboard(question.taskText)"
-        size="small"
-        color="pink"
-      ) copy
     v-textarea.mt-4.mb-2(
       @update:modelValue="setCommentText"
       :modelValue="question.comment"
