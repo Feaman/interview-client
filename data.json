@@ -144,7 +144,12 @@
         "comment": "",
         "status:": "",
         "taskText": "function test () { console.log(a) }; test()",
-        "taskLinks": [],
+        "taskLinks": [
+          {
+            "title": "Замыкания",
+            "url": "https://pavlo.ru/images/interview/11.png"
+          }
+        ],
         "items": []
       },
       {
