@@ -8,18 +8,19 @@ div
       color="pink"
       class="text-white"
     ) Add
-  v-card.mt-8
-    v-list#candidates.pa-0
+  v-card.my-8
+    v-list#candidates.pa-0(lines="two")
       template(
-        v-for="(candidate, index) in candidates"
+        v-for="(candidate, index) in candidatesSorted"
+        :key="candidate.id"
       )
-        v-list-item(
+        v-list-item.cursor-pointer.py-0(
+          :title="candidate.name"
+          :subtitle="candidate.created"
           @click="openCandidate(candidate)"
         )
-          v-list-item-title
-            .d-flex.align-center
-              div {{ candidate.name }}
-              v-spacer
+          template(v-slot:append)
+            .py-2
               v-btn(
                 @click.stop="openRemoveDialog(candidate)"
                 :icon="mdiClose"
@@ -79,13 +80,13 @@ import type { Ref } from 'vue'
 import questions from '~/data.json'
 import CandidateService from '~/services/candidates-service'
 import CandidateModel from '~/models/candidate-model'
-import { user } from '~/compositions/users'
 import { candidates } from '~/compositions/candidates'
 
 const isDialogShown = ref(false)
 const name = ref('')
 const isRemoveDialogShown = ref(false)
 const candidateToRemove: Ref<CandidateModel | null> = ref(null)
+const candidatesSorted = computed(() => candidates.value.sort((previousItem, nextItem) => Number(nextItem.id) - Number(previousItem.id)))
 
 function openCandidate (candidate: CandidateModel) {
   useRouter().push({ name: 'candidate-id', params: { id: String(candidate.id) } })
@@ -119,4 +120,10 @@ async function removeCandidate () {
 <style lang="stylus" scoped>
 .create-card
   width 400px
+
+.cursor-pointer
+  cursor pointer
+
+.v-list-item:hover
+  background-color #f5f5f5
 </style>
