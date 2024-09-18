@@ -15,10 +15,15 @@ div
         :key="candidate.id"
       )
         v-list-item.cursor-pointer.py-0(
-          :title="candidate.name"
-          :subtitle="candidate.created"
           @click="openCandidate(candidate)"
         )
+          v-list-item-title(
+            v-text="candidate.name"
+          )
+          v-list-item-subtitle(
+            v-text="getDateTime(candidate)"
+            :class="{ 'text-grey-lighten-1': !candidate.created }"
+          )
           template(v-slot:append)
             .py-2
               v-btn(
@@ -106,6 +111,13 @@ async function add () {
 function openRemoveDialog (candidate: CandidateModel) {
   candidateToRemove.value = candidate
   isRemoveDialogShown.value = true
+}
+
+function getDateTime (candidate: CandidateModel) {
+  if (!candidate.created) {
+    return new Date().toLocaleString()
+  }
+  return `${new Date(candidate.created).toLocaleDateString()} ${new Date(candidate.created).toLocaleTimeString()}`
 }
 
 async function removeCandidate () {

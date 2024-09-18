@@ -25,7 +25,7 @@ export default class CandidateModel {
     this.id = data.id
     this.name = data.name || ''
     this.data = data.data || ''
-    this.created = `${new Date(data.created).toLocaleDateString()} ${new Date(data.created).toLocaleTimeString()}` || ''
+    this.created = data.created || ''
     this.handleQuestions(data.data)
   }
 
