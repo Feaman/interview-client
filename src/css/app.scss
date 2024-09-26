@@ -1,0 +1,17 @@
+@import './effects.scss';
+@import './mixins.scss';
+@import './helpers.scss';
+
+* {
+  box-sizing: border-box;
+}
+
+body.desktop .q-hoverable:hover > .q-focus-helper {
+  opacity: 0.1;
+}
+
+.borders-y {
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 0 !important;
+}
