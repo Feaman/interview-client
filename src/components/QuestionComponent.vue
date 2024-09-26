@@ -1,7 +1,9 @@
 <template lang="pug">
   q-item.question.pa-0
     q-item-section
-      q-expansion-item
+      q-expansion-item.rounded-borders(
+        :group="`${isSubQuestion ? 'sub-' : ''}question`"
+      )
         template(
           v-slot:header
         )
@@ -37,13 +39,13 @@
                 flat
               )
         q-card.rounded-borders.pt-1
-          q-card-section.px-0(
+          q-card-section.px-0.pb-0(
             :class="{ 'pb-0': isMobile && !isSubQuestion }"
           )
             q-input.text-black.shadow-0.font-size-16.mx-4(
               @update:modelValue="setComment(question, $event)"
               :modelValue="question.comment"
-              :class="{ 'mx-4': question.items.length }"
+              :class="{ 'mx-4': question.items.length, 'mb-4': isSubQuestion }"
               label="Комментарий"
               type="textarea"
               standout="bg-grey-2"
@@ -67,9 +69,9 @@
                       @click="copyToClipboard(question.taskText)"
                       color="pink"
                     ) copy
-              q-item(
+              q-item.px-2(
                 v-for="taskLink in question.taskLinks"
-                :class="isMobile ? 'py-2 px-2' : 'py-4 px-2'"
+                :class="isMobile ? 'py-2' : 'py-4'"
               )
                 q-item-section
                   .text-center
@@ -150,11 +152,12 @@ function copyToClipboard(string: string) {
 
   .q-expansion-item {
     border: 2px solid #ffffff;
-    transition: border-color 0.3s;
+    transition: margin 0.1s, border-color 0.3s;
   }
 
   .q-expansion-item--expanded {
     border-color: #9f48c3;
+    margin: 10px;
   }
 
   :deep() .q-expansion-item--expanded > div > .q-item {

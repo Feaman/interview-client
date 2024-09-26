@@ -4,6 +4,7 @@
       v-if="candidates.length"
     )
     q-card.text-center.shadow-0.mt-6.py-8(
+      v-else
       :bordered="!isMobile"
       :class="{ 'borders-y': isMobile }"
     )

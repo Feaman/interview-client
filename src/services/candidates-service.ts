@@ -1,4 +1,4 @@
-import { currentCandidate, isCandidateLoading } from '~/composables'
+import { isCandidateLoading } from '~/composables'
 import CandidateModel, { TCandidate } from '~/models/candidate-model'
 import BaseService, { TGlobalError } from '~/services/base-service'
 

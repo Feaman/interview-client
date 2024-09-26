@@ -114,10 +114,10 @@ q-dialog(
             :class="{ 'ml-2': currentAvatarPath }"
             :error="!!photoErrorText"
             :error-message="photoErrorText"
+            :max-file-size="MAX_FILE_SIZE"
             class="col"
             label="Photo"
             accept=".jpg, image/*"
-            :max-file-size="MAX_FILE_SIZE"
             outlined
             dense
           )

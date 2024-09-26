@@ -30,13 +30,6 @@ export default class QuestionModel {
 
   static STATUS_BAD = 'STATUS_BAD'
 
-  static rules = {
-    id: 'numeric',
-    title: 'string',
-    comment: 'string',
-    status: 'string',
-  }
-
   constructor(data: IQuestion) {
     this.id = data.id
     this.title = data.title || ''

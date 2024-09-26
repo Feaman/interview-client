@@ -7,7 +7,7 @@
       :bordered="!isMobile"
       :class="{ 'borders-y': isMobile }"
     )
-      .items-center(
+      .column.items-center(
         :class="isMobile ? 'column' : 'row'"
       )
         PersonAvatar(
@@ -17,11 +17,17 @@
           isClickable
         )
 
-        q-input.name-input(
-          @update:modelValue="setName"
-          :modelValue="candidate.name"
+        q-input.name-input.mt-2(
+          @update:modelValue="setFirstName"
+          :modelValue="candidate.firstName"
           :class="{ 'mt-4': isMobile, 'ml-4': !isMobile, 'ml-6': !isMobile && candidate.photoPath }"
-          label="Имя"
+          debounce="400"
+        )
+
+        q-input.name-input(
+          @update:modelValue="setSecondName"
+          :modelValue="candidate.secondName"
+          :class="{ 'mt-4': isMobile, 'ml-4': !isMobile, 'ml-6': !isMobile && candidate.photoPath }"
           debounce="400"
         )
 
@@ -46,7 +52,8 @@ import { isMobile } from '~/composables'
 
 const emit = defineEmits<{
   'update:comment': [question: QuestionModel, comment: string]
-  'update:name': [name: string]
+  'update:first-name': [firstName: string]
+  'update:second-name': [secondName: string]
   'update:photo': [file: File]
   'update:status': [question: QuestionModel, status: string]
 }>()
@@ -59,8 +66,12 @@ function setComment(question: QuestionModel, comment: string) {
   emit('update:comment', question, comment)
 }
 
-function setName(name: string) {
-  emit('update:name', name)
+function setFirstName(firstName: string) {
+  emit('update:first-name', firstName)
+}
+
+function setSecondName(secondName: string) {
+  emit('update:second-name', secondName)
 }
 
 function setStatus(question: QuestionModel, status: string) {
@@ -80,6 +91,7 @@ function setPhoto(file: File) {
     }
 
     input {
+      text-align: center;
       font-size: 44px;
     }
   }

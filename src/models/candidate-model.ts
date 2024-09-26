@@ -3,7 +3,8 @@ import BaseService from '~/services/base-service'
 
 export type TCandidate = {
   id: number
-  name: string
+  firstName: string
+  secondName: string
   photoPath: string
   data: string
   created: string
@@ -12,7 +13,9 @@ export type TCandidate = {
 export default class CandidateModel {
   id: number
 
-  name: string
+  firstName: string
+
+  secondName: string
 
   photoPath: string
 
@@ -22,16 +25,10 @@ export default class CandidateModel {
 
   questions: IQuestion[]
 
-  static rules = {
-    id: 'string',
-    name: 'string',
-    data: 'string',
-    created: 'string',
-  }
-
   constructor(data: TCandidate) {
     this.id = data.id
-    this.name = data.name || ''
+    this.firstName = data.firstName || ''
+    this.secondName = data.secondName || ''
     this.data = data.data || ''
     this.photoPath = data.photoPath ? `${BaseService.baseURL}/${data.photoPath}` : ''
     this.created = data.created || ''
@@ -49,7 +46,10 @@ export default class CandidateModel {
   }
 
   getInitials() {
-    const nameParts = this.name.split(' ')
-    return `${nameParts[0].charAt(0).toUpperCase()}${nameParts[1] ? nameParts[1].charAt(0).toUpperCase() : ''}`
+    return `${this.firstName.charAt(0).toUpperCase()}${this.secondName ? this.secondName.charAt(0).toUpperCase() : ''}`
+  }
+
+  getFio() {
+    return `${this.firstName}${this.secondName ? ` ${this.secondName}` : ''}`
   }
 }

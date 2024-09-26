@@ -2,7 +2,8 @@
   q-page
     CandidateComponent(
       v-if="candidate"
-      @update:name="setName"
+      @update:first-name="setFirstName"
+      @update:second-name="setSecondName"
       @update:photo="setPhoto"
       @update:comment="setComment"
       @update:status="setStatus"
@@ -35,9 +36,16 @@ function getCandidate() {
 }
 getCandidate()
 
-function setName(name: string) {
+function setFirstName(firstName: string) {
   if (candidate.value) {
-    candidate.value.name = name
+    candidate.value.firstName = firstName
+    CandidateService.update(candidate.value)
+  }
+}
+
+function setSecondName(secondName: string) {
+  if (candidate.value) {
+    candidate.value.secondName = secondName
     CandidateService.update(candidate.value)
   }
 }
@@ -60,7 +68,8 @@ async function setPhoto(file: File) {
   if (candidate.value) {
     const formData = new FormData()
     formData.append('id', String(candidate.value.id))
-    formData.append('name', candidate.value.name)
+    formData.append('firstName', candidate.value.firstName)
+    formData.append('secondName', candidate.value.secondName)
     formData.append('data', JSON.stringify(candidate.value.questions))
     if (file) {
       formData.append('photo', file)

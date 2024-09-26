@@ -6,7 +6,7 @@
           :photoPath="candidate.photoPath"
           :initials="candidate.getInitials()"
         )
-        .text-subtitle1.text-weight-bold.font-size-24.mt-4 {{ candidate.name }}
+        .text-subtitle1.text-weight-bold.font-size-24.mt-4 {{ candidate.getFio() }}
 
       .row.flex-center
         q-avatar.bg-green(size="18px")
