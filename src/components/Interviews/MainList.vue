@@ -111,7 +111,9 @@ q-dialog(
   v-model="isRemoveDialogShown"
 )
   q-card
-    q-card-section.row.items-center.q-pb-none.text-h6 Delete candidate
+    q-card-section.row.items-center.q-pb-none.bg-grey-3.py-2
+      .text-h6.text-uppercase Delete candidate
+    q-separator
     q-card-section
       q-list.rounded-borders(
         bordered
