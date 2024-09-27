@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios'
 import { boot } from 'quasar/wrappers'
 import { api } from '~/boot/axios'
 import BaseService from '~/services/base-service'
@@ -13,6 +14,12 @@ export default boot(({ app }) => {
       app.component(part.split('.')[0], componentsFolderFiles[key].default)
     }
   })
+
+  app.config.errorHandler = (error) => {
+    const status = (error as { response: { data: { statusCode: number }}}).response?.data?.statusCode || (error as AxiosError).status || 500
+    const message = (error as { response: { data: { message: string }}}).response?.data?.message || (error as Error).message || 'Unexpected error'
+    BaseService.handleError({ status, message })
+  }
 
   BaseService.initApplication()
 })

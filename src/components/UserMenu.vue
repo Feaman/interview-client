@@ -42,6 +42,17 @@
               )
               .cursor-pointer.py-1.ml-2 Account
         q-item.font-size-16(
+          @click="router.push({ name: ROUTE_TEMPLATES })"
+          clickable
+        )
+          q-item-section
+            .row.items-center
+              q-icon(
+                :name="mdiWidgets"
+                color="black"
+              )
+              .cursor-pointer.py-1.ml-2 Templates
+        q-item.font-size-16(
           @click="signOut()"
           clickable
         )
@@ -59,9 +70,11 @@ q-dialog(
   v-model="isShowAccount"
 )
   q-card(style="width: 350px;")
+    q-card-section.row.items-center.q-pb-none.bg-grey-3.py-2
+      .text-h6.text-uppercase User account
+    q-separator
     q-card-section
-      .text-h5 User account
-      .font-size-18.text-grey-7.mt-4 Credentials
+      .text-h6 Credentials
         q-input.mt-2(
           v-model="email"
           label="Email"
@@ -82,7 +95,7 @@ q-dialog(
           outlined
           dense
         )
-      .font-size-18.text-grey-7.mt-4 Personal info
+      .text-h6.mt-4 Personal info
         q-input.mt-2(
           v-model="firstName"
           label="First Name"
@@ -145,8 +158,10 @@ q-dialog(
 </template>
 
 <script setup lang="ts">
-import { mdiAccount, mdiLogout } from '@quasar/extras/mdi-v6'
+import { mdiAccount, mdiLogout, mdiWidgets } from '@quasar/extras/mdi-v6'
 import { computed, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { ROUTE_TEMPLATES } from '~/router/routes'
 import { user } from '~/composables'
 import UsersService from '~/services/users-service'
 
@@ -167,6 +182,7 @@ const secondName = ref(user.value?.secondName)
 const photo = ref<File | undefined>(undefined)
 const isLoading = ref(false)
 const errorText = ref('')
+const router = useRouter()
 
 const isValid = computed(() => {
   const isFieldsValid = (email.value && email.value.length <= RULE_1024_LENGTH)

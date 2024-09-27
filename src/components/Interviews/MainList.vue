@@ -2,7 +2,7 @@
 .main-page(
   :class="{ 'is-mobile': isMobile }"
 )
-  q-list.interviews.rounded-borders.bg-white.my-4(
+  q-list.rounded-borders.bg-white.my-4(
     :bordered="!isMobile"
     :class="{ 'borders-y': isMobile }"
     separator
@@ -23,10 +23,7 @@
 
       q-item-section.pa-1
         q-item-label.font-size-16.text-grey-9 {{ candidate.getFio() }}
-        q-item-section.text-grey(
-          lines="1"
-          caption
-        ) {{ getDateTime(candidate) }}
+        q-item-label.font-size-14.text-grey(caption) {{ getDateTime(candidate) }}
 
       q-item-section(
         side
@@ -53,24 +50,36 @@ q-dialog(
   backdrop-filter="blur(4px)"
   v-model="isDialogShown"
 )
-  q-card.add-dialog
-    q-card-section.row.items-center.q-pb-none.text-h6 New candidate
+  q-card.add-dialog(
+    style="width: 100%; max-width: 500px;"
+  )
+    q-card-section.row.items-center.q-pb-none.bg-grey-3.py-2
+      .text-h6.text-uppercase New candidate
+    q-separator
     q-card-section
+      .text-h6 First name
       q-input(
-        label="First name"
         v-model="firstName"
         hint="At least 3 letters"
         outlined
         dense
       )
-      q-input.mt-4(
-        label="Second Name"
+      .text-h6.mt-4 Second name
+      q-input(
         v-model="secondName"
         outlined
         dense
       )
-      q-file.mt-4(
-        label="Photo"
+      .text-h6.mt-4 Template
+      q-select(
+        v-model="template"
+        :options="templates"
+        option-label="title"
+        outlined
+        dense
+      )
+      .text-h6.mt-4 Photo
+      q-file(
         v-model="photo"
         :max-file-size="MAX_FILE_SIZE"
         :hint="`Max file size is ${MAX_FILE_SIZE / 1024 / 1024}MB`"
@@ -83,7 +92,7 @@ q-dialog(
     )
       q-btn(
         @click="add()"
-        :disabled="firstName.length < 3"
+        :disabled="!isValid"
         :loading="isCandidateLoading"
         label="Create"
         color="primary"
@@ -104,7 +113,7 @@ q-dialog(
   q-card
     q-card-section.row.items-center.q-pb-none.text-h6 Delete candidate
     q-card-section
-      q-list.interviews.rounded-borders(
+      q-list.rounded-borders(
         bordered
       )
         q-item.px-3
@@ -144,11 +153,13 @@ q-dialog(
 import { mdiClose } from '@quasar/extras/mdi-v6'
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import questions from '~/data.json'
 import CandidateService from '~/services/candidates-service'
 import CandidateModel from '~/models/candidate-model'
 import { ROUTE_CANDIDATE } from '~/router/routes'
-import { candidates, isCandidateLoading, isMobile } from '~/composables'
+import {
+  candidates, templates, isCandidateLoading, isMobile,
+} from '~/composables'
+import TemplateModel from '~/models/template-model'
 
 const MAX_FILE_SIZE = 2097152
 const ERROR_FILE_SIZE = 'max-file-size'
@@ -158,11 +169,14 @@ const photoErrorText = ref('')
 const isDialogShown = ref(false)
 const firstName = ref('')
 const secondName = ref('')
+const template = ref<TemplateModel | undefined>(templates.value.find((_template) => _template.isDefault))
 const photo = ref<File | undefined>(undefined)
 const isRemoveDialogShown = ref(false)
 const candidateToRemove = ref<CandidateModel | null>(null)
 const candidatesSorted = computed(() => candidates.value.sort((previousItem, nextItem) => Number(nextItem.id) - Number(previousItem.id)))
 const router = useRouter()
+
+const isValid = computed(() => firstName.value.length >= 3 && template.value)
 
 function openCandidate(candidate: CandidateModel) {
   router.push({ name: ROUTE_CANDIDATE, params: { id: String(candidate.id) } })
@@ -186,10 +200,14 @@ function openDialog() {
 }
 
 async function add() {
+  if (!template.value) {
+    throw new Error('Template not selected')
+  }
+
   const formData = new FormData()
   formData.append('firstName', firstName.value)
   formData.append('secondName', secondName.value)
-  formData.append('data', JSON.stringify(questions))
+  formData.append('data', template.value.data)
   if (photo.value) {
     formData.append('photo', photo.value)
   }

@@ -1,15 +1,27 @@
 import { RouteRecordRaw } from 'vue-router'
 import MainLayoutComponent from '~/layouts/MainLayout.vue'
+import CandidatePage from '~/pages/CandidatePage.vue'
+import IndexPage from '~/pages/IndexPage.vue'
 import SignPage from '~/pages/SignPage.vue'
+import TemplatePage from '~/pages/TemplatePage.vue'
+import TemplatesPage from '~/pages/TemplatesPage.vue'
 
+export const ROUTE_INDEX = 'index'
 export const ROUTE_SIGN = 'sign'
 export const ROUTE_CANDIDATE = 'candidate-id'
+export const ROUTE_NEW_TEMPLATE = 'new-template'
+export const ROUTE_UPDATE_TEMPLATE = 'update-template'
+export const ROUTE_TEMPLATES = 'templates'
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: MainLayoutComponent,
-    children: [{ path: '', component: () => import('pages/IndexPage.vue') }],
+    children: [{
+      path: '',
+      name: ROUTE_INDEX,
+      component: IndexPage,
+    }],
   },
   {
     path: '/sign',
@@ -26,7 +38,34 @@ const routes: RouteRecordRaw[] = [
     children: [{
       path: '',
       name: ROUTE_CANDIDATE,
-      component: () => import('pages/CandidatePage.vue'),
+      component: CandidatePage,
+    }],
+  },
+  {
+    path: '/templates',
+    component: MainLayoutComponent,
+    children: [{
+      path: '',
+      name: ROUTE_TEMPLATES,
+      component: TemplatesPage,
+    }],
+  },
+  {
+    path: '/template/new',
+    component: MainLayoutComponent,
+    children: [{
+      path: '',
+      name: ROUTE_NEW_TEMPLATE,
+      component: TemplatePage,
+    }],
+  },
+  {
+    path: '/template/:id',
+    component: MainLayoutComponent,
+    children: [{
+      path: '',
+      name: ROUTE_UPDATE_TEMPLATE,
+      component: TemplatePage,
     }],
   },
 

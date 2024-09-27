@@ -1,14 +1,67 @@
 <template lang="pug">
-  q-page
-    CandidateComponent(
-      v-if="candidate"
-      @update:first-name="setFirstName"
-      @update:second-name="setSecondName"
-      @update:photo="setPhoto"
-      @update:comment="setComment"
-      @update:status="setStatus"
-      :candidate="candidate"
+q-page.candidate-page.mt-6(
+  :class="{ 'mobile': isMobile }"
+)
+  q-breadcrumbs.rounded-borders.bg-grey-4.pb-2.pl-2
+    template(
+      v-slot:separator
     )
+      q-icon(
+        name="chevron_right"
+        color="primary"
+        size="1.5em"
+      )
+    q-breadcrumbs-el(
+      :to="{ name: ROUTE_INDEX }"
+      label="Candidates"
+      icon="home"
+    )
+    q-breadcrumbs-el(
+      :label="candidate.getFio()"
+      icon="person"
+    )
+
+  .candidate-container.mb-6
+    q-card.pa-4.pl-6.mt-4.shadow-0(
+      :bordered="!isMobile"
+      :class="{ 'borders-y': isMobile }"
+    )
+      .column.items-center(
+        :class="isMobile ? 'column' : 'row'"
+      )
+        PersonAvatar(
+          @update:photo="setPhoto"
+          :photoPath="candidate.photoPath"
+          :initials="candidate.getInitials()"
+          isClickable
+        )
+
+        q-input.name-input.mt-6(
+          @update:modelValue="setFirstName"
+          :modelValue="candidate.firstName"
+          :class="{ 'mt-4': isMobile, 'ml-4': !isMobile, 'ml-6': !isMobile && candidate.photoPath }"
+          debounce="400"
+        )
+
+        q-input.name-input.mt-6(
+          @update:modelValue="setSecondName"
+          :modelValue="candidate.secondName"
+          :class="{ 'mt-4': isMobile, 'ml-4': !isMobile, 'ml-6': !isMobile && candidate.photoPath }"
+          debounce="400"
+        )
+
+    q-list.rounded-borders.bg-white.mt-6(
+      :bordered="!isMobile"
+      :class="{ 'borders-y': isMobile }"
+      separator
+    )
+      InterviewQuestion(
+        v-for="(question, index) in candidate.questions"
+        @update:comment="setComment"
+        @update:status="setStatus"
+        :key="index"
+        :question="question"
+      )
 </template>
 
 <script setup lang="ts">
@@ -17,7 +70,8 @@ import { ref } from 'vue'
 import CandidateService from '~/services/candidates-service'
 import CandidateModel from '~/models/candidate-model'
 import QuestionModel from '~/models/question-model'
-import { candidates, currentCandidate } from '~/composables'
+import { candidates, currentCandidate, isMobile } from '~/composables'
+import { ROUTE_INDEX } from '~/router/routes'
 
 defineOptions({
   name: 'CandidatePage',
@@ -83,3 +137,32 @@ onBeforeRouteLeave(() => {
   currentCandidate.value = undefined
 })
 </script>
+
+<style lang="scss" scoped>
+.candidate-page {
+  .name-input:deep() {
+    .q-field__control {
+      height: 54px;
+    }
+
+    input {
+      text-align: center;
+      font-size: 44px;
+    }
+  }
+
+  &.mobile {
+    .name-input:deep() {
+      width: 100%;
+
+      .q-field__control {
+        height: 34px;
+      }
+
+      input {
+        font-size: 30px;
+      }
+    }
+  }
+}
+</style>

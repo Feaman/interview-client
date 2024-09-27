@@ -1,5 +1,6 @@
 import { candidates, user } from '~/composables'
 import CandidateModel, { TCandidate } from '~/models/candidate-model'
+import { TTemplate } from '~/models/template-model'
 import UserModel, { TUser } from '~/models/user-model'
 import BaseService from '~/services/base-service'
 import StorageService from '~/services/storage'
@@ -7,6 +8,7 @@ import StorageService from '~/services/storage'
 export type TConfig = {
   user: TUser,
   candidates: TCandidate[],
+  templates: TTemplate[],
   token?: string,
 }
 

@@ -42,10 +42,9 @@
           q-card-section.px-0.pb-0(
             :class="{ 'pb-0': isMobile && !isSubQuestion }"
           )
-            q-input.text-black.shadow-0.font-size-16.mx-4(
+            q-input.text-black.shadow-0.font-size-16.mb-4.mx-4(
               @update:modelValue="setComment(question, $event)"
               :modelValue="question.comment"
-              :class="{ 'mx-4': question.items.length, 'mb-4': isSubQuestion }"
               label="Комментарий"
               type="textarea"
               standout="bg-grey-2"
@@ -93,7 +92,7 @@
               bordered
               separator
             )
-              QuestionComponent(
+              InterviewQuestion(
                 v-for="(subQuestion, index) in question.items"
                 @update:comment="setComment"
                 @update:status="setStatus"
@@ -153,6 +152,10 @@ function copyToClipboard(string: string) {
   .q-expansion-item {
     border: 2px solid #ffffff;
     transition: margin 0.1s, border-color 0.3s;
+
+    :deep() .q-item__section--side.relative-position {
+      display: none;
+    }
   }
 
   .q-expansion-item--expanded {

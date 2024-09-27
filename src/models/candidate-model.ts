@@ -33,12 +33,12 @@ export default class CandidateModel {
     this.photoPath = data.photoPath ? `${BaseService.baseURL}/${data.photoPath}` : ''
     this.created = data.created || ''
     this.questions = []
-    this.handleQuestions(data.data)
+    this.handleQuestions()
   }
 
-  handleQuestions(json: string) {
+  handleQuestions() {
     try {
-      const data: IQuestion[] = JSON.parse(json)
+      const data: IQuestion[] = JSON.parse(this.data)
       this.questions = (data || []).map((questionData) => new QuestionModel(questionData))
     } catch (error) {
       throw Error('JSON parsing error')
