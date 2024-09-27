@@ -1,6 +1,10 @@
 <template lang="pug">
-q-page.templates-page.mt-6
-  q-breadcrumbs.rounded-borders.bg-grey-4.pb-2.pl-2
+q-page.templates-page.mt-4
+  q-breadcrumbs.bg-grey-4.py-2.pl-2(
+    :bordered="!isMobile"
+    :class="{ 'rounded-borders': !isMobile, 'borders-y': isMobile }"
+     gutter="none"
+  )
     template(
       v-slot:separator
     )
@@ -20,7 +24,20 @@ q-page.templates-page.mt-6
       icon="widgets"
     )
 
+  q-card.text-center.shadow-0.mt-6.py-8(
+    v-if="!templates.length"
+    :bordered="!isMobile"
+    :class="{ 'borders-y': isMobile }"
+  )
+    q-card-section
+      .font-size-24.text-grey-7.text-uppercase No one template found
+      q-btn.mt-8(
+        @click="router.push({ name: ROUTE_NEW_TEMPLATE })"
+        color="purple"
+        label="Try to add one"
+      )
   q-list.rounded-borders.bg-white.my-4(
+    v-else
     :bordered="!isMobile"
     :class="{ 'borders-y': isMobile }"
     separator

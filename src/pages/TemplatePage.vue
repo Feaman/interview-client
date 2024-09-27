@@ -1,8 +1,12 @@
 <template lang="pug">
-q-page.template-page.my-6(
-  v-if="existingTemplate && template"
+q-page.template-page.my-4(
+  v-if="template"
 )
-  q-breadcrumbs.rounded-borders.bg-grey-4.pb-2.pl-2
+  q-breadcrumbs.bg-grey-4.py-2.pl-2(
+    :bordered="!isMobile"
+    :class="{ 'rounded-borders': !isMobile, 'borders-y': isMobile }"
+     gutter="none"
+  )
     template(
       v-slot:separator
     )
@@ -22,7 +26,7 @@ q-page.template-page.my-6(
       icon="widgets"
     )
     q-breadcrumbs-el(
-      :label="existingTemplate.title"
+      :label="existingTemplate ? existingTemplate.title : 'New template'"
       icon="widgets"
     )
 
@@ -172,6 +176,7 @@ q-page.template-page.my-6(
       q-btn(
         @click="save()"
         :loading="isTemplateLoading"
+        :disabled="!isValid"
         :label="template.id ? 'Update' : 'Create'"
         color="purple"
         flat

@@ -116,6 +116,7 @@ q-dialog(
         )
         .row.mt-4
           PersonAvatar.mb-4(
+            v-if="currentAvatarPath"
             :photoPath="currentAvatarPath"
             size="40px"
             no-border

@@ -1,8 +1,12 @@
 <template lang="pug">
-q-page.candidate-page.mt-6(
+q-page.candidate-page.mt-4(
   :class="{ 'mobile': isMobile }"
 )
-  q-breadcrumbs.rounded-borders.bg-grey-4.pb-2.pl-2
+  q-breadcrumbs.bg-grey-4.py-2.pl-2(
+    :bordered="!isMobile"
+    :class="{ 'rounded-borders': !isMobile, 'borders-y': isMobile }"
+     gutter="none"
+  )
     template(
       v-slot:separator
     )

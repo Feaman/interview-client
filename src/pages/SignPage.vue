@@ -132,8 +132,8 @@ const isValid = computed(() => {
     return isEmailAndPasswordValid
   }
 
-  return isEmailAndPasswordValid && secondName.value && secondName.value.length <= RULE_155_LENGTH
-    && password.value && password.value.length <= RULE_155_LENGTH
+  return isEmailAndPasswordValid
+    && firstName.value && firstName.value.length > 3 && firstName.value.length <= RULE_155_LENGTH
 })
 
 async function sign() {
