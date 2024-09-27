@@ -11,7 +11,7 @@ q-page.template-page.my-6(
         color="primary"
         size="1.5em"
       )
-    q-breadcrumbs-el(
+    q-breadcrumbs-el.ml-1(
       :to="{ name: ROUTE_INDEX }"
       label="Candidates"
       icon="home"
