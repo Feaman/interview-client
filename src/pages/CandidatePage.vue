@@ -37,6 +37,7 @@ q-page.candidate-page.mt-4(
           @update:photo="setPhoto"
           :photoPath="candidate.photoPath"
           :initials="candidate.getInitials()"
+          :size="isMobile ? '72px' : '150px'"
           isClickable
         )
 

@@ -33,6 +33,7 @@ function pickAFile() {
   if (props.isClickable) {
     const input = document.createElement('input')
     input.type = 'file'
+    input.accept = '.jpg, image/*'
 
     input.onchange = (event) => {
       const $element = event.target as HTMLInputElement
@@ -50,7 +51,7 @@ function pickAFile() {
 <style lang="scss" scoped>
 .person-avatar {
   &.person-avatar--bordered {
-    border: 1px solid #9f51ff;
+    border: 1px solid rgba(0, 0, 0, 0.12);
     border-radius: 50%;
   }
 

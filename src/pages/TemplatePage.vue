@@ -35,7 +35,7 @@ q-page.template-page.my-4(
     :class="{ 'borders-y': isMobile }"
   )
     q-card-section.row.items-center.q-pb-none.bg-grey-3.py-2
-      .text-h6.text-uppercase {{ template.id ? 'Update' : 'Create' }} template
+      .text-h6.text-uppercase {{ template.id ? 'Edit' : 'Create' }} template
       q-space
       q-checkbox.text-purple(
         v-model="template.isDefault"
@@ -136,11 +136,12 @@ q-page.template-page.my-4(
                 outlined
                 dense
               )
-          .row.items-center.mt-2
+          .row.items-center(
+            :class="{ 'mt-2': subQuestion.taskLinks?.length }"
+          )
             q-btn(
               @click="addLink(subQuestion)"
               color="purple-7"
-              :class="{ 'mt-2': subQuestion.taskLinks?.length }"
             ) add link
             q-space
             q-btn.ml-2(

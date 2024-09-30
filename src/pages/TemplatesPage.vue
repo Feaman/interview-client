@@ -95,13 +95,11 @@ q-page.templates-page.mt-4
             q-item-section.pa-1
               q-item-label.font-size-16.text-grey-9 {{ templateToRemove.title }}
               q-item-label.font-size-14(caption) {{ templateToRemove.questions.length }} main questions
-        q-item-section
-          .row
-            q-space
-            q-badge.font-size-14.py-1(
-              v-if="templateToRemove.isDefault"
-              color="purple-5"
-            ) default
+            q-item-section(side)
+              q-badge.font-size-14.py-1(
+                v-if="templateToRemove.isDefault"
+                color="purple-5"
+              ) default
       q-card-actions(
         align="left"
       )
