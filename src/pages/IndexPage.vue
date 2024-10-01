@@ -1,6 +1,6 @@
 <template lang="pug">
 q-page
-  q-card.text-center.shadow-0.mt-6.py-8(
+  q-card.text-center.shadow-0.py-8(
     v-if="!templates.length"
     :bordered="!isMobile"
     :class="{ 'borders-y': isMobile }"
@@ -17,7 +17,7 @@ q-page
     v-if="candidates.length"
     :class="{ 'is-mobile': isMobile }"
   )
-    q-list.rounded-borders.bg-white.my-4(
+    q-list.rounded-borders.bg-white(
       :bordered="!isMobile"
       :class="{ 'borders-y': isMobile }"
       separator
@@ -88,6 +88,7 @@ q-page
         .text-h6 First name
         q-input(
           v-model="firstName"
+          ref="firstNameElement"
           hint="At least 3 letters"
           outlined
           dense
@@ -181,7 +182,7 @@ q-page
 
 <script setup lang="ts">
 import { mdiClose } from '@quasar/extras/mdi-v6'
-import { computed, ref } from 'vue'
+import { computed, nextTick, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import CandidateService from '~/services/candidates-service'
 import CandidateModel from '~/models/candidate-model'
@@ -199,6 +200,7 @@ const MAX_FILE_SIZE = 2097152
 const ERROR_FILE_SIZE = 'max-file-size'
 const ERROR_FILE_TYPE = 'accept'
 
+const firstNameElement = ref(null)
 const photoErrorText = ref('')
 const isDialogShown = ref(false)
 const firstName = ref('')
@@ -226,11 +228,16 @@ function onPhotoRejected(rejectedEntries: { failedPropValidation: string }[]) {
   }
 }
 
-function openDialog() {
+async function openDialog() {
   firstName.value = ''
   secondName.value = ''
   photo.value = undefined
   isDialogShown.value = true
+  setTimeout(() => {
+    if (firstNameElement.value) {
+      (firstNameElement.value as HTMLInputElement)?.focus()
+    }
+  })
 }
 
 async function add() {

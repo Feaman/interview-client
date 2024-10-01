@@ -1,8 +1,14 @@
 <template lang="pug">
-.sign-page.full-width.full-height.mt-4(
+.sign-page.full-width.full-height(
   v-if="!isTokenExists"
   ref="rootElement"
 )
+  .row.flex-center
+    q-card.full-width.sign-page__container.shadow-0(
+      bordered
+    )
+      q-card-section
+        .text-h6.text-uppercase.text-center.text-primary web service for conducting interviews
   .row.flex-center.full-width.full-height
     .sign-page__container.column.flex-center.full-width.q-px-lg.rounded-borders.bg-white.py-4.ma-4
       h5.full-width.text-left.q-ma-none Sign {{ isSignIn ? 'In' : 'Up' }}
@@ -16,6 +22,7 @@
             v-model="email"
             label="Email"
             type="email"
+            name="email"
             :maxlength="RULE_1024_LENGTH"
             counter
             clearable
@@ -97,6 +104,10 @@ import { useRouter } from 'vue-router'
 import UsersService from '~/services/users-service'
 import StorageService from '~/services/storage'
 import KeyboardEvents from '~/helpers/keyboard-events'
+
+defineOptions({
+  name: 'SignPage',
+})
 
 const isTokenExists = StorageService.get(UsersService.AUTH_TOKEN_NAME)
 const router = useRouter()

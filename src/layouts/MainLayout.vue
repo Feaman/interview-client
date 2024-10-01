@@ -1,5 +1,5 @@
 <template lang="pug">
-.main-layout.bg-grey-1
+.main-layout
   .global-loader.row.flex-center.full-width(
     v-if="isConfigLoading"
   )
@@ -10,14 +10,14 @@
   ErrorComponent.bg-white(v-else-if="globalError" :error="globalError")
   q-layout(
     v-else
-    view="lHh Lpr lFf"
   )
     q-header.row.flex-center.full-width(
+      v-if="router.currentRoute.value.name !== ROUTE_IMAGE"
       elevated
     )
       q-toolbar.toolbar
         .font-size-24.cursor-pointer(
-          @click="router.push('/')"
+          @click="router.push({ name: ROUTE_INDEX })"
         ) Interviews
         .q-space
         q-btn(
@@ -27,8 +27,10 @@
         ) REPORT
         .q-space
         UserMenu
-    q-page-container.row.flex-center.full-width
-      router-view.page
+    q-page-container.row.flex-center.full-width(
+      :class="{ 'px-4': !isMobile }"
+    )
+      router-view.page.py-4
 
 q-dialog(
   backdrop-filter="blur(4px)"
@@ -43,9 +45,9 @@ q-dialog(
 import { computed, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import {
-  globalError, isConfigLoading, currentCandidate, user,
+  globalError, isConfigLoading, currentCandidate, user, isMobile,
 } from '~/composables'
-import { ROUTE_SIGN } from '~/router/routes'
+import { ROUTE_SIGN, ROUTE_INDEX, ROUTE_IMAGE } from '~/router/routes'
 import StorageService from '~/services/storage'
 import UsersService from '~/services/users-service'
 
@@ -64,12 +66,10 @@ watch(isConfigLoading, () => {
 </script>
 
 <style lang="scss" scoped>
-.global-loader {
-  height: 100vh;
-}
-
-.toolbar, .page {
-  max-width: 900px;
-  width: 100%;
+.main-layout {
+  .toolbar, .page {
+    max-width: 900px;
+    width: 100%;
+  }
 }
 </style>

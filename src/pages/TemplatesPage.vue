@@ -1,5 +1,5 @@
 <template lang="pug">
-q-page.templates-page.mt-4
+q-page.templates-page
   q-breadcrumbs.bg-grey-4.py-2.pl-2(
     :bordered="!isMobile"
     :class="{ 'rounded-borders': !isMobile, 'borders-y': isMobile }"

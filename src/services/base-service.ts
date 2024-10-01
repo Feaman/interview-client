@@ -3,6 +3,7 @@ import { Router } from 'vue-router'
 import {
   candidates,
   globalError,
+  isConfigLoaded,
   isConfigLoading,
   isMobile,
   templates,
@@ -24,7 +25,7 @@ export default class BaseService {
 
   static router: Router
 
-  static async initApplication() {
+  static async loadConfig() {
     try {
       isConfigLoading.value = true
       const response = await this.api.get('/config')
@@ -33,13 +34,19 @@ export default class BaseService {
       this.handleError(error as TGlobalError)
     } finally {
       isConfigLoading.value = false
+      isConfigLoaded.value = true
     }
+  }
 
+  static async initApplication() {
     window.addEventListener('resize', this.handleWindowResize)
   }
 
   static handleWindowResize = () => {
-    isMobile.value = window.innerWidth < 900
+    isMobile.value = window.innerWidth < 500
+
+    // Fix 100vh for mobile
+    document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`)
   }
 
   static handleInitData(data: TConfig) {

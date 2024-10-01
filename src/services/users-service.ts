@@ -1,5 +1,5 @@
-import { candidates, user } from '~/composables'
-import CandidateModel, { TCandidate } from '~/models/candidate-model'
+import { user } from '~/composables'
+import { TCandidate } from '~/models/candidate-model'
 import { TTemplate } from '~/models/template-model'
 import UserModel, { TUser } from '~/models/user-model'
 import BaseService from '~/services/base-service'
@@ -17,8 +17,7 @@ export default class UsersService extends BaseService {
 
   static auth(data: TConfig) {
     StorageService.set({ [this.AUTH_TOKEN_NAME]: data.token })
-    user.value = new UserModel(data.user)
-    candidates.value = data.candidates.map((candidateData) => new CandidateModel(candidateData))
+    BaseService.handleInitData(data)
     this.router.push('/')
   }
 

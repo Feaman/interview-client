@@ -1,68 +1,71 @@
 <template lang="pug">
-.user-menu(v-if="user")
-  PersonAvatar.cursor-pointer(
-    :photoPath="user.photoPath"
-    :initials="user.getInitials()"
-    size="40px"
-    color="purple-2"
-    no-border
-  )
-    img(
-      v-if="user.photoPath"
-      :src="user.photoPath"
+.user-menu
+  template(v-if="!user")
+
+  template(v-else)
+    PersonAvatar.cursor-pointer(
+      :photoPath="user.photoPath"
+      :initials="user.getInitials()"
+      size="40px"
+      color="purple-2"
+      no-border
     )
-    .text-black.text-weight-bold(
-      v-else
-    ) {{ user.getInitials() }}
-  q-menu(
-    style="width: 240px;"
-  )
-    .column.no-wrap
-      .column.items-center.bg-grey-2.px-3.py-2.shadow-1
-        PersonAvatar(
-          :photoPath="user.photoPath"
-          :initials="user.getInitials()"
-          size="80px"
-          color="purple-2"
-        )
-        .text-subtitle1.text-weight-bold.mt-1 {{ user.getFio() }}
-        .text-grey-7 {{ user.email }}
-      q-list(
-        separator
+      img(
+        v-if="user.photoPath"
+        :src="user.photoPath"
       )
-        q-item.font-size-16(
-          @click="isShowAccount = true"
-          clickable
+      .text-black.text-weight-bold(
+        v-else
+      ) {{ user.getInitials() }}
+    q-menu(
+      style="width: 240px;"
+    )
+      .column.no-wrap
+        .column.items-center.bg-grey-2.px-3.py-2.shadow-1
+          PersonAvatar(
+            :photoPath="user.photoPath"
+            :initials="user.getInitials()"
+            size="80px"
+            color="purple-2"
+          )
+          .text-subtitle1.text-weight-bold.mt-1 {{ user.getFio() }}
+          .text-grey-7 {{ user.email }}
+        q-list(
+          separator
         )
-          q-item-section
-            .row.items-center
-              q-icon(
-                :name="mdiAccount"
-                color="black"
-              )
-              .cursor-pointer.py-1.ml-2 Account
-        q-item.font-size-16(
-          @click="router.push({ name: ROUTE_TEMPLATES })"
-          clickable
-        )
-          q-item-section
-            .row.items-center
-              q-icon(
-                :name="mdiWidgets"
-                color="black"
-              )
-              .cursor-pointer.py-1.ml-2 Templates
-        q-item.font-size-16(
-          @click="signOut()"
-          clickable
-        )
-          q-item-section
-            .row.items-center
-              q-icon(
-                :name="mdiLogout"
-                color="black"
-              )
-              .cursor-pointer.py-1.ml-2 Sign out
+          q-item.font-size-16(
+            @click="isShowAccount = true"
+            clickable
+          )
+            q-item-section
+              .row.items-center
+                q-icon(
+                  :name="mdiAccount"
+                  color="black"
+                )
+                .cursor-pointer.py-1.ml-2 Account
+          q-item.font-size-16(
+            @click="router.push({ name: ROUTE_TEMPLATES })"
+            clickable
+          )
+            q-item-section
+              .row.items-center
+                q-icon(
+                  :name="mdiWidgets"
+                  color="black"
+                )
+                .cursor-pointer.py-1.ml-2 Templates
+          q-item.font-size-16(
+            @click="signOut()"
+            clickable
+          )
+            q-item-section
+              .row.items-center
+                q-icon(
+                  :name="mdiLogout"
+                  color="black"
+                )
+                .cursor-pointer.py-1.ml-2 Sign out
 
 q-dialog(
   @hide="onAccountClose()"

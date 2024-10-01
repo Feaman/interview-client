@@ -6,8 +6,9 @@ import {
   createWebHistory,
 } from 'vue-router'
 
+import { isConfigLoaded } from '~/composables'
 import BaseService from '~/services/base-service'
-import routes from './routes'
+import routes, { ROUTE_IMAGE, ROUTE_NOT_FOUND } from './routes'
 
 /*
  * If not building with SSR mode, you can
@@ -31,6 +32,12 @@ export default route((/* { store, ssrContext } */) => {
     // quasar.conf.js -> build -> vueRouterMode
     // quasar.conf.js -> build -> publicPath
     history: createHistory(process.env.VUE_ROUTER_BASE),
+  })
+
+  Router.beforeEach((to, from) => {
+    if (!isConfigLoaded.value && ![ROUTE_IMAGE, ROUTE_NOT_FOUND].includes(String(to.name))) {
+      BaseService.loadConfig()
+    }
   })
 
   BaseService.router = Router

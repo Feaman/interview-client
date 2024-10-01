@@ -1,5 +1,6 @@
 <template lang="pug">
-q-page.candidate-page.mt-4(
+q-page.candidate-page(
+  v-if="candidate"
   :class="{ 'mobile': isMobile }"
 )
   q-breadcrumbs.bg-grey-4.py-2.pl-2(
@@ -89,7 +90,7 @@ function getCandidate() {
   const candidateId = Number(route.params.id)
   candidate.value = candidates.value.find((_candidate) => _candidate.id === candidateId)
   if (!candidate.value) {
-    throw new Error('Candidate not found')
+    throw new Error(`Candidate with id "${route.params.id}" not found`)
   }
   currentCandidate.value = candidate.value
 }

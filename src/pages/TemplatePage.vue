@@ -1,5 +1,5 @@
 <template lang="pug">
-q-page.template-page.my-4(
+q-page.template-page(
   v-if="template"
 )
   q-breadcrumbs.bg-grey-4.py-2.pl-2(
@@ -135,6 +135,11 @@ q-page.template-page.my-4(
                 label="Link URL"
                 outlined
                 dense
+              )
+              q-btn.ml-2.self-center(
+                @click="subQuestion.taskLinks.splice(index, 1)"
+                :icon="mdiClose"
+                color="red"
               )
           .row.items-center(
             :class="{ 'mt-2': subQuestion.taskLinks?.length }"

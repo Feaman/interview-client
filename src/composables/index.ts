@@ -6,6 +6,7 @@ import { type TGlobalError } from '~/services/base-service'
 
 export const globalError = ref<TGlobalError | undefined>(undefined)
 export const isConfigLoading = ref(false)
+export const isConfigLoaded = ref(false)
 export const isMobile = ref(window.innerWidth < 768)
 export const isCandidateLoading = ref(false)
 export const isTemplateLoading = ref(false)

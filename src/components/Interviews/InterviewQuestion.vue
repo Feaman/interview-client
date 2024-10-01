@@ -191,7 +191,7 @@ function copyToClipboard(string: string) {
   }
 
   .question__title {
-    line-height: 26px;
+    line-height: 28px;
 
     &.question__title--mobile {
       line-height: 18px;

@@ -2,6 +2,10 @@
 @import './mixins.scss';
 @import './helpers.scss';
 
+html {
+  background-color: rgb(250, 250, 250);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -14,4 +18,9 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
   border-top: 1px solid rgba(0, 0, 0, 0.12);
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 0 !important;
+}
+
+.global-loader {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
 }

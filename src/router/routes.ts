@@ -1,6 +1,7 @@
 import { RouteRecordRaw } from 'vue-router'
 import MainLayoutComponent from '~/layouts/MainLayout.vue'
 import CandidatePage from '~/pages/CandidatePage.vue'
+import ImagePage from '~/pages/ImagePage.vue'
 import IndexPage from '~/pages/IndexPage.vue'
 import SignPage from '~/pages/SignPage.vue'
 import TemplatePage from '~/pages/TemplatePage.vue'
@@ -12,8 +13,19 @@ export const ROUTE_CANDIDATE = 'candidate-id'
 export const ROUTE_NEW_TEMPLATE = 'new-template'
 export const ROUTE_UPDATE_TEMPLATE = 'update-template'
 export const ROUTE_TEMPLATES = 'templates'
+export const ROUTE_IMAGE = 'image'
+export const ROUTE_NOT_FOUND = 'not-found'
 
 const routes: RouteRecordRaw[] = [
+  {
+    path: '/image/:imageName',
+    component: MainLayoutComponent,
+    children: [{
+      path: '',
+      name: ROUTE_IMAGE,
+      component: ImagePage,
+    }],
+  },
   {
     path: '/',
     component: MainLayoutComponent,
@@ -73,6 +85,7 @@ const routes: RouteRecordRaw[] = [
   // but you can also remove it
   {
     path: '/:catchAll(.*)*',
+    name: ROUTE_NOT_FOUND,
     component: () => import('~/pages/ErrorNotFound.vue'),
   },
 ]
