@@ -67,7 +67,7 @@
                     q-btn.text-white.my-6(
                       @click="copyToClipboard(question.taskText)"
                       color="pink"
-                    ) copy
+                    ) copy to clipboard
               q-item.px-2(
                 v-for="taskLink in question.taskLinks"
                 :class="isMobile ? 'py-2' : 'py-4'"
@@ -86,7 +86,7 @@
                     q-btn.my-2.mt-4.text-white(
                       @click="copyToClipboard(taskLink.url)"
                       color="pink"
-                    ) copy
+                    ) copy to clipboard
             q-list.rounded-borders.mx-4.mb-4.mt-6(
               v-if="question.items.length"
               bordered
