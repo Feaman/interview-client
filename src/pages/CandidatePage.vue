@@ -28,44 +28,42 @@ q-page.candidate-page(
 
   .candidate-container.mb-6
     q-card.pa-4.pl-6.mt-4.shadow-0(
-      v-if="isShowReportButton"
       :bordered="!isMobile"
       :class="{ 'borders-y': isMobile }"
     )
-      q-card-section.row.flex-center.pa-0
-        q-btn(
-          @click="isShowReport = true"
-          color="purple"
-        ) {{ t('show report') }}
+      .row.items-center.no-wrap
+        .column.flex-center
+          PersonAvatar(
+            @update:photo="setPhoto"
+            :photoPath="candidate.photoPath"
+            :initials="candidate.getInitials()"
+            :size="isMobile ? '80px' : '180px'"
+            isClickable
+          )
 
-    q-card.pa-4.pl-6.mt-4.shadow-0(
-      :bordered="!isMobile"
-      :class="{ 'borders-y': isMobile }"
-    )
-      .column.items-center(
-        :class="isMobile ? 'column' : 'row'"
-      )
-        PersonAvatar(
-          @update:photo="setPhoto"
-          :photoPath="candidate.photoPath"
-          :initials="candidate.getInitials()"
-          :size="isMobile ? '72px' : '150px'"
-          isClickable
-        )
+          .mt-6.mb-3
+            q-btn(
+              @click="isShowReport = true"
+              :disabled="!isShowReportButton"
+              :color="isShowReportButton ? 'purple' : 'grey-5'"
+            ) {{ t('show report') }}
 
-        q-input.name-input.mt-6(
-          @update:modelValue="setFirstName"
-          :modelValue="candidate.firstName"
-          :class="{ 'mt-4': isMobile, 'ml-4': !isMobile, 'ml-6': !isMobile && candidate.photoPath }"
-          debounce="400"
-        )
+        .column.flex-center.ml-6
+          q-input.name-input.mt-6(
+            @update:modelValue="setFirstName"
+            :modelValue="candidate.firstName"
+            :class="{ 'mt-4': isMobile, 'ml-4': !isMobile, 'ml-6': !isMobile && candidate.photoPath }"
+            debounce="400"
+          )
 
-        q-input.name-input.mt-6(
-          @update:modelValue="setSecondName"
-          :modelValue="candidate.secondName"
-          :class="{ 'mt-4': isMobile, 'ml-4': !isMobile, 'ml-6': !isMobile && candidate.photoPath }"
-          debounce="400"
-        )
+          q-input.name-input.mt-6(
+            @update:modelValue="setSecondName"
+            :modelValue="candidate.secondName"
+            :class="{ 'mt-4': isMobile, 'ml-4': !isMobile, 'ml-6': !isMobile && candidate.photoPath }"
+            debounce="400"
+          )
+
+          .text-grey.mt-4 {{ new Date(candidate.created).toLocaleString().replace(',', '') }}
 
     q-list.rounded-borders.bg-white.mt-6(
       :bordered="!isMobile"
@@ -181,14 +179,12 @@ onBeforeRouteLeave(() => {
 
   &.mobile {
     .name-input:deep() {
-      width: 100%;
-
       .q-field__control {
         height: 34px;
       }
 
       input {
-        font-size: 30px;
+        font-size: 25px;
       }
     }
   }

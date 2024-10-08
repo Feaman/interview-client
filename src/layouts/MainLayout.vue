@@ -16,10 +16,11 @@
       elevated
     )
       q-toolbar.toolbar
-        img(src="/icons/icon.png" style="width: 35px; height: 35px;")
-        .font-size-24.cursor-pointer.ml-1(
+        .row(
           @click="router.push({ name: ROUTE_INDEX })"
-        ) {{ t('Interviews') }}
+        )
+          img(src="/icons/icon.png" style="width: 35px; height: 35px;")
+          .font-size-24.cursor-pointer.ml-1 {{ t('Interviews') }}
         .q-space
         q-select.language-select(
           v-model="currentLanguage"

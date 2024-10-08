@@ -58,8 +58,25 @@ q-page
         q-item-section.pa-1
           q-item-label.font-size-16.text-grey-9 {{ candidate.getFio() }}
           q-item-label.font-size-14.text-grey(caption) {{ getDateTime(candidate) }}
+          q-item-label.row
+            div(
+              v-for="(mainQuestion, index) in candidate.questions.filter((question) => question.status)"
+              :style="`width: 5px; height: 5px; border-radius: 50%;`"
+              :class="`bg-${mainQuestion.getColorClass()} ${index === 0 ? '' : 'ml-1'}`"
+            )
 
         q-item-section(
+          v-if="!isMobile && getIsShowReportButton(candidate)"
+          side
+        )
+          q-btn(
+            @click.stop="showReport(candidate)"
+            :icon="mdiFileDocument"
+            flat
+            round
+          )
+
+        q-item-section.pl-0(
           side
         )
           q-btn(
@@ -202,10 +219,18 @@ q-page
           flat
           v-close-popup
         )
+
+  q-dialog(
+    backdrop-filter="blur(4px)"
+    v-model="isShowReport"
+  )
+    CandidateReport(
+      :candidate="selectedCandidate"
+    )
   </template>
 
 <script setup lang="ts">
-import { mdiClose } from '@quasar/extras/mdi-v6'
+import { mdiClose, mdiFileDocument } from '@quasar/extras/mdi-v6'
 import { computed, nextTick, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import CandidateService from '~/services/candidates-service'
@@ -214,7 +239,8 @@ import { ROUTE_CANDIDATE, ROUTE_NEW_TEMPLATE } from '~/router/routes'
 import { t } from '~/services/translate'
 import TemplateModel from '~/models/template-model'
 import {
-  templates, candidates, isMobile, isCandidateLoading,
+  candidates, isMobile,
+  templates, isCandidateLoading,
 } from '~/composables'
 
 defineOptions({
@@ -236,11 +262,22 @@ const isRemoveDialogShown = ref(false)
 const candidateToRemove = ref<CandidateModel | null>(null)
 const candidatesSorted = computed(() => candidates.value.sort((previousItem, nextItem) => Number(nextItem.id) - Number(previousItem.id)))
 const router = useRouter()
+const isShowReport = ref(false)
+const selectedCandidate = ref<CandidateModel | undefined>(undefined)
 
 const isValid = computed(() => firstName.value.length >= 3 && template.value)
 
 function openCandidate(candidate: CandidateModel) {
   router.push({ name: ROUTE_CANDIDATE, params: { id: String(candidate.id) } })
+}
+
+function showReport(candidate: CandidateModel) {
+  selectedCandidate.value = candidate
+  isShowReport.value = true
+}
+
+function getIsShowReportButton(candidate: CandidateModel) {
+  return candidate && candidate.questions.filter((question) => question.status !== '').length
 }
 
 function onPhotoRejected(rejectedEntries: { failedPropValidation: string }[]) {
