@@ -15,18 +15,13 @@ q-page.template-page(
         color="primary"
         size="1.5em"
       )
-    q-breadcrumbs-el.ml-1(
-      :to="{ name: ROUTE_INDEX }"
-      label="Candidates"
-      icon="home"
-    )
     q-breadcrumbs-el(
       :to="{ name: ROUTE_TEMPLATES }"
-      label="Templates"
+      :label="t('Templates')"
       icon="widgets"
     )
     q-breadcrumbs-el(
-      :label="existingTemplate ? existingTemplate.title : 'New template'"
+      :label="t(existingTemplate ? existingTemplate.title : 'New template')"
       icon="widgets"
     )
 
@@ -35,42 +30,42 @@ q-page.template-page(
     :class="{ 'borders-y': isMobile }"
   )
     q-card-section.row.items-center.q-pb-none.bg-grey-3.py-2
-      .text-h6.text-uppercase {{ template.id ? 'Edit' : 'Create' }} template
+      .text-h6.text-uppercase {{ t(`Template ${template.id ? 'edition' : 'creation'}`) }}
       q-space
       q-checkbox.text-purple(
         v-model="template.isDefault"
-        label="is default"
+        :label="t('default')"
       )
     q-separator
-    .text-h6.mt-4.ml-4 Title
+    .text-h6.mt-4.ml-4 {{ t('Title') }}
     q-card-section.pb-0.pt-1
       q-input(
-        label="Title"
         v-model="template.title"
-        hint="At least 3 letters"
+        :label="t('Title')"
+        :hint="t('At least 3 letters')"
         outlined
       )
-      .text-h6.mt-6 Questions
+      .text-h6.mt-6 {{ t('Questions') }}
       .template-page__question.rounded-borders.pa-3(
         v-for="(question, index) in template.questions"
         :class="{ 'mt-1': index === 0, 'mt-4': index !== 0 }"
       )
-        div Title
+        div {{ t('Title') }}
         q-input.mt-1.col(
-          :label="`Main question ${index + 1}`"
+          :label="`${t('Main question')} ${index + 1}`"
           v-model="question.title"
           outlined
         )
 
-        .mt-4 Text
+        .mt-4 {{ t('Text') }}
         q-input.mt-1(
           v-model="question.taskText"
-          label="text"
+          :label="t('Text')"
           outlined
           dense
         )
 
-        .mt-4 Links
+        .mt-4 {{ t('Links') }}
         template(
           v-if="question.taskLinks"
         )
@@ -79,13 +74,13 @@ q-page.template-page(
           )
             q-input.mt-1.col(
               v-model="link.title"
-              label="Link title"
+              :label="t('Link title')"
               outlined
               dense
             )
             q-input.mt-1.ml-2.col(
               v-model="link.url"
-              label="Link URL"
+              :label="t('Link URL')"
               outlined
               dense
             )
@@ -93,30 +88,30 @@ q-page.template-page(
           @click="addLink(question)"
           color="purple-7"
           :class="{ 'mt-2': question.taskLinks?.length }"
-        ) add link
+        ) {{ t('Add link') }}
 
-        .mt-4 Sub-questions
+        .mt-4 {{ t('Sub-questions') }}
         .template-page__question.pa-2.rounded-borders(
           v-for="(subQuestion, index) in question.items"
           :class="{ 'mt-1': index === 0, 'mt-4': index !== 0 }"
         )
-          div Title
+          div {{ t('Title') }}
           q-input.col(
-            :label="`Sub-question ${index + 1}`"
+            :label="`${t('Sub-question')} ${index + 1}`"
             v-model="subQuestion.title"
             outlined
             dense
           )
 
-          .mt-4 Text
+          .mt-4 {{ t('Text') }}
           q-input.mt-1(
             v-model="subQuestion.taskText"
-            label="text"
+            :label="t('Text')"
             outlined
             dense
           )
 
-          .mt-4 Links
+          .mt-4 {{ t('Links') }}
           template(
             v-if="subQuestion.taskLinks"
           )
@@ -126,13 +121,13 @@ q-page.template-page(
             )
               q-input.mt-1.col(
                 v-model="link.title"
-                label="Link title"
+                :label="t('Link title')"
                 outlined
                 dense
               )
               q-input.mt-1.ml-2.col(
                 v-model="link.url"
-                label="Link URL"
+                :label="t('Link URL')"
                 outlined
                 dense
               )
@@ -147,12 +142,12 @@ q-page.template-page(
             q-btn(
               @click="addLink(subQuestion)"
               color="purple-7"
-            ) add link
+            ) {{ t('Add link') }}
             q-space
             q-btn.ml-2(
               @click="question.items.splice(index, 1)"
               color="red"
-              label="Delete"
+              :label="t('Delete')"
             )
 
         .row.items-center
@@ -160,11 +155,11 @@ q-page.template-page(
             @click="question.items.push({ title: '', items: [] })"
             :class="{ 'mt-2': question.items.length }"
             color="purple-7"
-          ) add sub-question
+          ) {{ t('Add sub-question') }}
           q-space
           q-btn.mt-2(
             @click="template.questions.splice(index, 1)"
-            label="Delete"
+            :label="t('Delete')"
             color="red"
           )
 
@@ -172,7 +167,7 @@ q-page.template-page(
         @click="template.questions.push({ title: '', items: [] })"
         :class="{ 'mt-4': template.questions.length }"
         color="purple-7"
-      ) add main question
+      ) {{ t('Add main question') }}
 
       .text-red.mt-6 {{ errorText }}
 
@@ -183,7 +178,7 @@ q-page.template-page(
         @click="save()"
         :loading="isTemplateLoading"
         :disabled="!isValid"
-        :label="template.id ? 'Update' : 'Create'"
+        :label="t(template.id ? 'Save' : 'Create')"
         color="purple"
         flat
         v-close-popup
@@ -199,6 +194,7 @@ import TemplateModel from '~/models/template-model'
 import { ROUTE_NEW_TEMPLATE, ROUTE_TEMPLATES, ROUTE_INDEX } from '~/router/routes'
 import TemplateService from '~/services/templates-service'
 import QuestionModel from '~/models/question-model'
+import { t } from '~/services/translate'
 
 defineOptions({
   name: 'TemplatePage',

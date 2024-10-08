@@ -1,19 +1,38 @@
 <template lang="pug">
 q-page
-  q-card.text-center.shadow-0.py-8(
+  q-breadcrumbs.bg-grey-4.py-2.pl-2(
+    :bordered="!isMobile"
+    :class="{ 'rounded-borders': !isMobile, 'borders-y': isMobile }"
+     gutter="none"
+  )
+    template(
+      v-slot:separator
+    )
+      q-icon(
+        name="chevron_right"
+        color="primary"
+        size="1.5em"
+      )
+    q-breadcrumbs-el.ml-1(
+      :label="t('Candidates')"
+      icon="home"
+    )
+
+  q-card.text-center.shadow-0.mt-4.py-8(
     v-if="!templates.length"
     :bordered="!isMobile"
     :class="{ 'borders-y': isMobile }"
   )
     q-card-section
-      .font-size-24.text-grey-7.text-uppercase No one template found
-      .font-size-20.text-red.text-weight-bold.text-uppercase this prevents you from adding candidates
+      .font-size-24.text-grey-7.text-uppercase {{ t('No one template found') }}
+      .font-size-20.text-red.text-weight-bold.text-uppercase {{ t('This prevents you from adding candidates') }}
       q-btn.mt-8(
         @click="router.push({ name: ROUTE_NEW_TEMPLATE })"
         color="purple"
-        label="Try to add one"
+        :label="t('Add a template')"
       )
-  .main-page(
+
+  .main-page.mt-4(
     v-if="candidates.length"
     :class="{ 'is-mobile': isMobile }"
   )
@@ -61,17 +80,18 @@ q-page
         icon="add"
         fab
       )
-  q-card.text-center.shadow-0.mt-6.py-8(
-    v-else
+
+  q-card.text-center.shadow-0.mt-4.py-8(
+    v-else-if="templates.length"
     :bordered="!isMobile"
     :class="{ 'borders-y': isMobile }"
   )
     q-card-section
-      .font-size-24.text-grey-7.text-uppercase No one candidate found
+      .font-size-24.text-grey-7.text-uppercase {{ t('No one candidate found') }}
       q-btn.mt-8(
         @click="openDialog()"
         color="purple"
-        label="Try to add one"
+        :label="t('Add a candidate')"
       )
 
   q-dialog(
@@ -82,36 +102,40 @@ q-page
       style="width: 100%; max-width: 500px;"
     )
       q-card-section.row.items-center.q-pb-none.bg-grey-3.py-2
-        .text-h6.text-uppercase New candidate
+        .text-h6.text-uppercase {{ t('New candidate') }}
       q-separator
       q-card-section
-        .text-h6 First name
+        .text-h6 {{ t('First name') }}
         q-input(
           v-model="firstName"
           ref="firstNameElement"
-          hint="At least 3 letters"
+          :hint="t('At least 3 letters')"
           outlined
           dense
         )
-        .text-h6.mt-4 Second name
+        .text-h6.mt-4 {{ t('Second name') }}
         q-input(
           v-model="secondName"
           outlined
           dense
         )
-        .text-h6.mt-4 Template
+        .text-h6.mt-4 {{ t('Template') }}
         q-select(
           v-model="template"
           :options="templates"
           option-label="title"
+          hint="required"
           outlined
           dense
         )
-        .text-h6.mt-4 Photo
+        .text-h6.mt-4 {{ t('Photo') }}
         q-file(
+          @rejected="onPhotoRejected"
           v-model="photo"
           :max-file-size="MAX_FILE_SIZE"
-          :hint="`Max file size is ${MAX_FILE_SIZE / 1024 / 1024}MB`"
+          :hint="`${t('Max file size is')} ${MAX_FILE_SIZE / 1024 / 1024}${t('MB')}`"
+          :error="!!photoErrorText"
+          :error-message="photoErrorText"
           accept=".jpg, image/*"
           outlined
           dense
@@ -123,13 +147,13 @@ q-page
           @click="add()"
           :disabled="!isValid"
           :loading="isCandidateLoading"
-          label="Create"
+          :label="t('Create')"
           color="primary"
           flat
         )
         q-space
         q-btn(
-          label="Close"
+          :label="t('Close')"
           flat
           v-ripple
           v-close-popup
@@ -141,7 +165,7 @@ q-page
   )
     q-card
       q-card-section.row.items-center.q-pb-none.bg-grey-3.py-2
-        .text-h6.text-uppercase Delete candidate
+        .text-h6.text-uppercase {{ t('Candidate deletion') }}
       q-separator
       q-card-section
         q-list.rounded-borders(
@@ -167,14 +191,14 @@ q-page
         q-btn(
           @click="removeCandidate()"
           :loading="isCandidateLoading"
-          label="Delete"
+          :label="t('Delete')"
           color="red"
           flat
           v-close-popup
         )
         q-space
         q-btn(
-          label="Close"
+          :label="t('Close')"
           flat
           v-close-popup
         )
@@ -187,6 +211,7 @@ import { useRouter } from 'vue-router'
 import CandidateService from '~/services/candidates-service'
 import CandidateModel from '~/models/candidate-model'
 import { ROUTE_CANDIDATE, ROUTE_NEW_TEMPLATE } from '~/router/routes'
+import { t } from '~/services/translate'
 import TemplateModel from '~/models/template-model'
 import {
   templates, candidates, isMobile, isCandidateLoading,
@@ -220,11 +245,10 @@ function openCandidate(candidate: CandidateModel) {
 
 function onPhotoRejected(rejectedEntries: { failedPropValidation: string }[]) {
   const errorType = rejectedEntries[0].failedPropValidation
-  if (errorType === ERROR_FILE_SIZE) {
-    photoErrorText.value = `Max file size is ${MAX_FILE_SIZE / 1024 / 1024} megabytes`
-  }
   if (errorType === ERROR_FILE_TYPE) {
-    photoErrorText.value = 'File is not an image'
+    photoErrorText.value = t('File is not an image')
+  } else if (errorType === ERROR_FILE_SIZE) {
+    photoErrorText.value = `${t('Max file size is')} ${MAX_FILE_SIZE / 1024 / 1024}${t('MB')}`
   }
 }
 
@@ -233,6 +257,7 @@ async function openDialog() {
   secondName.value = ''
   photo.value = undefined
   isDialogShown.value = true
+  photoErrorText.value = ''
   setTimeout(() => {
     if (firstNameElement.value) {
       (firstNameElement.value as HTMLInputElement)?.focus()

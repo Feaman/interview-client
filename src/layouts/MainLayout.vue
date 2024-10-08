@@ -16,44 +16,39 @@
       elevated
     )
       q-toolbar.toolbar
-        .font-size-24.cursor-pointer(
+        img(src="/icons/icon.png" style="width: 35px; height: 35px;")
+        .font-size-24.cursor-pointer.ml-1(
           @click="router.push({ name: ROUTE_INDEX })"
-        ) Interviews
+        ) {{ t('Interviews') }}
         .q-space
-        q-btn(
-          v-if="isShowReportButton"
-          @click="isShowReport = true"
-          color="purple"
-        ) REPORT
-        .q-space
-        UserMenu
+        q-select.language-select(
+          v-model="currentLanguage"
+          :options="LANGUAGES"
+          outlined
+          dense
+        )
+        .ml-4
+          UserMenu
     q-page-container.row.flex-center.full-width(
       :class="{ 'px-4': !isMobile }"
     )
       router-view.page.py-4
-
-q-dialog(
-  backdrop-filter="blur(4px)"
-  v-model="isShowReport"
-)
-  CandidateReport(
-    :candidate="currentCandidate"
-  )
 </template>
 
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
+import { t } from '~/services/translate'
 import {
   globalError, isConfigLoading, currentCandidate, user, isMobile,
+  currentLanguage,
+  LANGUAGES,
 } from '~/composables'
 import { ROUTE_SIGN, ROUTE_INDEX, ROUTE_IMAGE } from '~/router/routes'
 import StorageService from '~/services/storage'
 import UsersService from '~/services/users-service'
 
 const router = useRouter()
-const isShowReport = ref(false)
-const isShowReportButton = computed(() => currentCandidate.value && currentCandidate.value.questions.filter((question) => question.status !== '').length)
 
 watch(isConfigLoading, () => {
   if (globalError.value?.status === 401) {
@@ -70,6 +65,33 @@ watch(isConfigLoading, () => {
   .toolbar, .page {
     max-width: 900px;
     width: 100%;
+  }
+
+  .language-select {
+
+    :deep() {
+      .q-icon, span {
+        color: #ffffff;
+      }
+
+      .q-field__control, .q-field__native, .q-field__append {
+        height: 30px;
+        min-height: 0;
+        padding-right: 2px;
+      }
+
+      .q-field__control:not(:hover):before {
+        border-color: rgba(255, 255, 255, 0.3);
+      }
+
+      .q-field__control:hover:before {
+        border-color: #ffffff;
+      }
+
+      .q-field__control:hover:after {
+        border-color: transparent;
+      }
+    }
   }
 }
 </style>

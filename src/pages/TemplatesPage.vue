@@ -13,14 +13,9 @@ q-page.templates-page
         color="primary"
         size="1.5em"
       )
-    q-breadcrumbs-el.ml-1(
-      :to="{ name: ROUTE_INDEX }"
-      label="Candidates"
-      icon="home"
-    )
     q-breadcrumbs-el(
       :to="{ name: ROUTE_TEMPLATES }"
-      label="Templates"
+      :label="t('Templates')"
       icon="widgets"
     )
 
@@ -30,11 +25,11 @@ q-page.templates-page
     :class="{ 'borders-y': isMobile }"
   )
     q-card-section
-      .font-size-24.text-grey-7.text-uppercase No one template found
+      .font-size-24.text-grey-7.text-uppercase {{ t('No one template found') }}
       q-btn.mt-8(
         @click="router.push({ name: ROUTE_NEW_TEMPLATE })"
         color="purple"
-        label="Try to add one"
+        :label="t('Add a template')"
       )
   q-list.rounded-borders.bg-white.my-4(
     v-else
@@ -50,14 +45,14 @@ q-page.templates-page
     )
       q-item-section.pa-1
         q-item-label.row.font-size-16.text-grey-9 {{ template.title }}
-        q-item-label.font-size-14(caption) {{ template.questions.length }} main questions
+        q-item-label.font-size-14(caption) {{ template.questions.length }} {{ t('main questions') }}
       q-item-section
         .row
           q-space
           q-badge.font-size-14.py-1(
             v-if="template.isDefault"
             color="purple-5"
-          ) default
+          ) {{ t('default') }}
       q-item-section(
         side
       )
@@ -85,7 +80,7 @@ q-page.templates-page
   )
     q-card
       q-card-section.row.items-center.q-pb-none.bg-grey-3.py-2
-        .text-h6.text-uppercase Delete template
+        .text-h6.text-uppercase {{ t('Template deletion') }}
       q-separator
       q-card-section.pb-2
         q-list.rounded-borders(
@@ -94,26 +89,26 @@ q-page.templates-page
           q-item.px-3
             q-item-section.pa-1
               q-item-label.font-size-16.text-grey-9 {{ templateToRemove.title }}
-              q-item-label.font-size-14(caption) {{ templateToRemove.questions.length }} main questions
+              q-item-label.font-size-14(caption) {{ templateToRemove.questions.length }} {{ t('main questions') }}
             q-item-section(side)
               q-badge.font-size-14.py-1(
                 v-if="templateToRemove.isDefault"
                 color="purple-5"
-              ) default
+              ) {{ t('default') }}
       q-card-actions(
         align="left"
       )
         q-btn(
           @click="removeTemplate()"
           :loading="isTemplateLoading"
-          label="Delete"
+          :label="t('Delete')"
           color="red"
           flat
           v-close-popup
         )
         q-space
         q-btn(
-          label="Close"
+          :label="t('Close')"
           flat
           v-close-popup
         )
@@ -129,6 +124,7 @@ import {
   ROUTE_NEW_TEMPLATE, ROUTE_UPDATE_TEMPLATE, ROUTE_TEMPLATES, ROUTE_INDEX,
 } from '~/router/routes'
 import TemplateService from '~/services/templates-service'
+import { t } from '~/services/translate'
 
 defineOptions({
   name: 'TemplatesPage',

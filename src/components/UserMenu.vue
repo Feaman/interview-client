@@ -28,7 +28,7 @@
             size="80px"
             color="purple-2"
           )
-          .text-subtitle1.text-weight-bold.mt-1 {{ user.getFio() }}
+          .text-h6.mt-1 {{ user.getFio() }}
           .text-grey-7 {{ user.email }}
         q-list(
           separator
@@ -43,7 +43,18 @@
                   :name="mdiAccount"
                   color="black"
                 )
-                .cursor-pointer.py-1.ml-2 Account
+                .cursor-pointer.py-1.ml-2 {{ t('Account') }}
+          q-item.font-size-16(
+            @click="router.push({ name: ROUTE_INDEX })"
+            clickable
+          )
+            q-item-section
+              .row.items-center
+                q-icon(
+                  :name="mdiAccountGroup"
+                  color="black"
+                )
+                .cursor-pointer.py-1.ml-2 {{ t('Candidates') }}
           q-item.font-size-16(
             @click="router.push({ name: ROUTE_TEMPLATES })"
             clickable
@@ -54,7 +65,7 @@
                   :name="mdiWidgets"
                   color="black"
                 )
-                .cursor-pointer.py-1.ml-2 Templates
+                .cursor-pointer.py-1.ml-2 {{ t('Templates') }}
           q-item.font-size-16(
             @click="signOut()"
             clickable
@@ -65,7 +76,7 @@
                   :name="mdiLogout"
                   color="black"
                 )
-                .cursor-pointer.py-1.ml-2 Sign out
+                .cursor-pointer.py-1.ml-2 {{ t('Sign out') }}
 
 q-dialog(
   @hide="onAccountClose()"
@@ -74,15 +85,15 @@ q-dialog(
 )
   q-card(style="width: 350px;")
     q-card-section.row.items-center.q-pb-none.bg-grey-3.py-2
-      .text-h6.text-uppercase User account
+      .text-h6.text-uppercase {{ t('User account') }}
     q-separator
     q-card-section
-      .text-h6 Credentials
+      .text-h6 {{ t('Credentials') }}
         q-input.mt-2(
           v-model="email"
-          label="Email"
-          type="email"
+          :label="t('Email')"
           :maxlength="RULE_1024_LENGTH"
+          type="email"
           counter
           clearable
           outlined
@@ -91,17 +102,17 @@ q-dialog(
         q-input.q-mt-lg(
           v-model="password"
           type="password"
-          label="Password"
+          :label="t('Password')"
           :maxlength="RULE_155_LENGTH"
           counter
           clearable
           outlined
           dense
         )
-      .text-h6.mt-4 Personal info
+      .text-h6.mt-4 {{ t('Personal info') }}
         q-input.mt-2(
           v-model="firstName"
-          label="First Name"
+          :label="t('First name')"
           :maxlength="RULE_155_LENGTH"
           counter
           clearable
@@ -110,7 +121,7 @@ q-dialog(
         )
         q-input.q-mt-lg(
           v-model="secondName"
-          label="Second Name"
+          :label="t('Second name')"
           :maxlength="RULE_155_LENGTH"
           counter
           clearable
@@ -132,15 +143,16 @@ q-dialog(
             :error="!!photoErrorText"
             :error-message="photoErrorText"
             :max-file-size="MAX_FILE_SIZE"
+            :hint="`${t('Max file size is')} ${MAX_FILE_SIZE / 1024 / 1024}${t('MB')}`"
             class="col"
-            label="Photo"
+            :label="t('Photo')"
             accept=".jpg, image/*"
             outlined
             dense
           )
       .text-red.mt-6(
         v-if="errorText"
-      ) {{ errorText }}
+      ) {{ t(errorText) }}
     q-card-actions(
       align="left"
     )
@@ -148,13 +160,13 @@ q-dialog(
         @click="updateUser()"
         :disabled="!isValid"
         :loading="isLoading"
-        label="Update"
+        :label="t('Save')"
         color="primary"
         flat
       )
       q-space
       q-btn(
-        label="Close"
+        :label="t('Close')"
         flat
         v-ripple
         v-close-popup
@@ -162,12 +174,15 @@ q-dialog(
 </template>
 
 <script setup lang="ts">
-import { mdiAccount, mdiLogout, mdiWidgets } from '@quasar/extras/mdi-v6'
+import {
+  mdiAccount, mdiLogout, mdiWidgets, mdiAccountGroup,
+} from '@quasar/extras/mdi-v6'
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { ROUTE_TEMPLATES } from '~/router/routes'
+import { ROUTE_TEMPLATES, ROUTE_INDEX } from '~/router/routes'
 import { user } from '~/composables'
 import UsersService from '~/services/users-service'
+import { t } from '~/services/translate'
 
 const RULE_155_LENGTH = 155
 const RULE_1024_LENGTH = 1024
@@ -190,7 +205,7 @@ const router = useRouter()
 
 const isValid = computed(() => {
   const isFieldsValid = (email.value && email.value.length <= RULE_1024_LENGTH)
-    && (firstName.value && firstName.value.length <= RULE_155_LENGTH)
+    && (firstName.value && firstName.value.length >= 3 && firstName.value.length <= RULE_155_LENGTH)
     && (secondName.value && secondName.value.length <= RULE_155_LENGTH)
   return isFieldsValid
 })
@@ -209,11 +224,10 @@ function onAccountClose() {
 
 function onPhotoRejected(rejectedEntries: { failedPropValidation: string }[]) {
   const errorType = rejectedEntries[0].failedPropValidation
-  if (errorType === ERROR_FILE_SIZE) {
-    photoErrorText.value = `Max file size is ${MAX_FILE_SIZE / 1024 / 1024} megabytes`
-  }
   if (errorType === ERROR_FILE_TYPE) {
-    photoErrorText.value = 'File is not an image'
+    photoErrorText.value = t('File is not an image')
+  } else if (errorType === ERROR_FILE_SIZE) {
+    photoErrorText.value = `${t('Max file size is')} ${MAX_FILE_SIZE / 1024 / 1024}${t('MB')}`
   }
 }
 

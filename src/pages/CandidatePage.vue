@@ -18,7 +18,7 @@ q-page.candidate-page(
       )
     q-breadcrumbs-el.ml-1(
       :to="{ name: ROUTE_INDEX }"
-      label="Candidates"
+      :label="t('Candidates')"
       icon="home"
     )
     q-breadcrumbs-el(
@@ -27,6 +27,17 @@ q-page.candidate-page(
     )
 
   .candidate-container.mb-6
+    q-card.pa-4.pl-6.mt-4.shadow-0(
+      v-if="isShowReportButton"
+      :bordered="!isMobile"
+      :class="{ 'borders-y': isMobile }"
+    )
+      q-card-section.row.flex-center.pa-0
+        q-btn(
+          @click="isShowReport = true"
+          color="purple"
+        ) {{ t('show report') }}
+
     q-card.pa-4.pl-6.mt-4.shadow-0(
       :bordered="!isMobile"
       :class="{ 'borders-y': isMobile }"
@@ -68,16 +79,25 @@ q-page.candidate-page(
         :key="index"
         :question="question"
       )
+
+  q-dialog(
+    backdrop-filter="blur(4px)"
+    v-model="isShowReport"
+  )
+    CandidateReport(
+      :candidate="currentCandidate"
+    )
 </template>
 
 <script setup lang="ts">
 import { onBeforeRouteLeave, useRoute } from 'vue-router'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import CandidateService from '~/services/candidates-service'
 import CandidateModel from '~/models/candidate-model'
 import QuestionModel from '~/models/question-model'
 import { candidates, currentCandidate, isMobile } from '~/composables'
 import { ROUTE_INDEX } from '~/router/routes'
+import { t } from '~/services/translate'
 
 defineOptions({
   name: 'CandidatePage',
@@ -85,6 +105,8 @@ defineOptions({
 
 const route = useRoute()
 const candidate = ref<CandidateModel | undefined>(undefined)
+const isShowReport = ref(false)
+const isShowReportButton = computed(() => currentCandidate.value && currentCandidate.value.questions.filter((question) => question.status !== '').length)
 
 function getCandidate() {
   const candidateId = Number(route.params.id)

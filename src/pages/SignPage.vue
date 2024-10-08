@@ -8,10 +8,10 @@
       bordered
     )
       q-card-section
-        .text-h6.text-uppercase.text-center.text-primary web service for conducting interviews
+        .text-h6.text-uppercase.text-center.text-primary {{ t('web service for conducting interviews') }}
   .row.flex-center.full-width.full-height
     .sign-page__container.column.flex-center.full-width.q-px-lg.rounded-borders.bg-white.py-4.ma-4
-      h5.full-width.text-left.q-ma-none Sign {{ isSignIn ? 'In' : 'Up' }}
+      h5.full-width.text-left.q-ma-none {{ t(`Sign ${isSignIn ? 'In' : 'Up'}`) }}
       .full-width(
         :class="`sign-page__sign-${isSignIn ? 'in' : 'up'}-form`"
       )
@@ -20,7 +20,7 @@
         )
           q-input.q-mt-lg(
             v-model="email"
-            label="Email"
+            :label="t('Email')"
             type="email"
             name="email"
             :maxlength="RULE_1024_LENGTH"
@@ -31,7 +31,7 @@
           q-input.q-mt-lg(
             v-model="password"
             type="password"
-            label="Password"
+            :label="t('Password')"
             :maxlength="RULE_155_LENGTH"
             counter
             clearable
@@ -42,7 +42,7 @@
         )
           q-input.q-mt-lg(
             v-model="email"
-            label="Email"
+            :label="t('Email')"
             type="email"
             :maxlength="RULE_1024_LENGTH"
             counter
@@ -52,7 +52,7 @@
           q-input.q-mt-lg(
             v-model="password"
             type="password"
-            label="Password"
+            :label="t('Password')"
             :maxlength="RULE_155_LENGTH"
             counter
             clearable
@@ -60,40 +60,47 @@
           )
           q-input.q-mt-lg(
             v-model="firstName"
-            label="First Name"
+            :label="t('First name')"
             :maxlength="RULE_155_LENGTH"
+            :hint="t('At least 3 letters')"
             counter
             clearable
             outlined
           )
           q-input.q-mt-lg(
             v-model="secondName"
-            label="Second Name"
+            :label="t('Second name')"
             :maxlength="RULE_155_LENGTH"
             counter
             clearable
             outlined
           )
           q-file.mt-4(
-            label="Photo"
+            @rejected="onPhotoRejected"
             v-model="photo"
+            :label="t('Photo')"
+            :error="!!photoErrorText"
+            :error-message="photoErrorText"
+            :max-file-size="MAX_FILE_SIZE"
+            :hint="`${t('Max file size is')} ${MAX_FILE_SIZE / 1024 / 1024}${t('MB')}`"
+            accept=".jpg, image/*"
             outlined
           )
       .text-red.mt-4(
         v-if="errorText"
-      ) {{ errorText }}
+      ) {{ t(errorText) }}
 
       q-btn.mt-4(
         @click="sign()"
         :loading="isLoading"
         :disable="!isValid"
-        :label="`Sign ${isSignIn ? 'In' : 'Up'}`"
+        :label="t(`Sign ${isSignIn ? 'In' : 'Up'}`)"
         color="primary"
       )
-      .mt-4 OR
+      .mt-4 {{ t('OR') }}
       q-btn.mt-2(
         @click="togglePage()"
-        :label="`Sign ${isSignIn ? 'Up' : 'In'}`"
+        :label="t(`Sign ${!isSignIn ? 'In' : 'Up'}`)"
         flat
       )
 </template>
@@ -104,6 +111,7 @@ import { useRouter } from 'vue-router'
 import UsersService from '~/services/users-service'
 import StorageService from '~/services/storage'
 import KeyboardEvents from '~/helpers/keyboard-events'
+import { t } from '~/services/translate'
 
 defineOptions({
   name: 'SignPage',
@@ -118,6 +126,9 @@ if (isTokenExists) {
 
 const RULE_155_LENGTH = 155
 const RULE_1024_LENGTH = 1024
+const MAX_FILE_SIZE = 2097152
+const ERROR_FILE_SIZE = 'max-file-size'
+const ERROR_FILE_TYPE = 'accept'
 
 const rootElement = ref<HTMLElement | null>(null)
 
@@ -129,6 +140,7 @@ const secondName = ref('')
 const photo = ref<File | undefined>(undefined)
 const isLoading = ref(false)
 const errorText = ref('')
+const photoErrorText = ref('')
 
 function togglePage() {
   errorText.value = ''
@@ -146,6 +158,15 @@ const isValid = computed(() => {
   return isEmailAndPasswordValid
     && firstName.value && firstName.value.length > 3 && firstName.value.length <= RULE_155_LENGTH
 })
+
+function onPhotoRejected(rejectedEntries: { failedPropValidation: string }[]) {
+  const errorType = rejectedEntries[0].failedPropValidation
+  if (errorType === ERROR_FILE_TYPE) {
+    photoErrorText.value = t('File is not an image')
+  } else if (errorType === ERROR_FILE_SIZE) {
+    photoErrorText.value = `${t('Max file size is')} ${MAX_FILE_SIZE / 1024 / 1024}${t('MB')}`
+  }
+}
 
 async function sign() {
   if (isValid.value) {
