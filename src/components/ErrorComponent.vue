@@ -8,6 +8,26 @@
         .error-page__title.text-h3.text-weight-bold.mt-8 Awww... What the dragon?!
         .error-page__status-code.text-grey-7.mt-2 Calm down, it's just a {{ statusCode }} error.
         .error-page__message.text-h4.text-blue-5.font-size-28.ml-1.mt-4 {{ message }}
+        q-list.full-width.rounded-borders.mt-4(
+          bordered
+        )
+          q-expansion-item.error-stack.text-blue-5.text-h5(
+            v-if="stack"
+            label="Stack"
+            bordered
+          )
+            q-card.text-left
+              q-card-section
+                q-list.rounded-borders(
+                  bordered
+                  separator
+                )
+                  q-item.px-3.py-1.text-grey-7.font-size-14(
+                    v-for="(line, index) in stack"
+                    :key="index"
+                  )
+                    q-item-section {{ line }}
+
         .row.mt-6
           q-btn(
             @click="home"
@@ -30,6 +50,8 @@ const props = defineProps<{
 let message = ''
 const statusCode = (props.error as AxiosError)?.status || 500
 const code = (props.error as AxiosError)?.code || ''
+const stack = (props.error as AxiosError)?.stack?.split('\n') || ''
+
 if (statusCode === 401) {
   message = 'Page not found'
 } else {

@@ -1,12 +1,12 @@
 <template lang="pug">
   q-card.candidate-report(style="width: 900px; max-width: 900px;")
     q-card-section.column.items-center
-      .candidate-report__candidate.column.items-center.rounded-borders.pa-4.pt-2
+      .candidate-report__candidate.column.items-center.rounded-borders.pa-4.pt-1
         PersonAvatar(
           :photoPath="candidate.photoPath"
           :initials="candidate.getInitials()"
         )
-        .text-subtitle1.text-weight-bold.font-size-24.mt-4 {{ candidate.getFio() }}
+        .text-subtitle1.text-weight-bold.font-size-24.mt-2 {{ candidate.getFio() }}
 
       .row.flex-center
         q-avatar.bg-green(size="18px")
@@ -21,7 +21,7 @@
         bordered
         separator
       )
-        .candidate-report__question-title.text-center.py-4.bg-grey-2
+        .candidate-report__question-title.text-center.py-2.bg-grey-2
           .row.items-center.justify-center
             .text-uppercase.font-size-21.text-weight-bolder(
               :class="`text-${question.getColorClass()}`"
@@ -36,14 +36,14 @@
         q-list(
           separator
         )
-          q-item.pl-0(
+          q-item.py-2.px-0(
             v-for="subQuestion in getSubQuestions(question)"
           )
             q-item-section.ml-4
               q-item-label.font-size-18(
                 :class="`text-${subQuestion.getColorClass()}`"
               ) {{ subQuestion.title }}
-              q-item-label.font-size-14(
+              q-item-label.font-size-14.mt-0(
                 v-if="subQuestion.comment"
                 caption
               ) {{ subQuestion.comment }}
@@ -78,6 +78,10 @@ function getSubQuestions(question: QuestionModel) {
   .candidate-report__question-title {
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
+  }
+
+  .q-item {
+    min-height: 0;
   }
 }
 </style>

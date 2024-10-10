@@ -14,7 +14,7 @@ import TemplateModel from '~/models/template-model'
 import UserModel from '~/models/user-model'
 import { TConfig } from '~/services/users-service'
 
-export type TGlobalError = { status: number | undefined, message: string }
+export type TGlobalError = { status: number | undefined, message: string, stack?: string }
 
 export default class BaseService {
   static error: (errorText: string) => void

@@ -23,7 +23,7 @@ export default class CandidateModel {
 
   created: string
 
-  questions: IQuestion[]
+  questions: QuestionModel[]
 
   constructor(data: TCandidate) {
     this.id = data.id

@@ -17,8 +17,11 @@ export default boot(({ app }) => {
 
   app.config.errorHandler = (error) => {
     const status = (error as { response: { data: { statusCode: number }}}).response?.data?.statusCode || (error as AxiosError).status || 500
-    const message = (error as { response: { data: { message: string }}}).response?.data?.message || (error as Error).message || 'Unexpected error'
-    BaseService.handleError({ status, message })
+    const message = (typeof error === 'string')
+      ? error
+      : (error as { response: { data: { message: string }}}).response?.data?.message || (error as Error).message || 'Unexpected error'
+    const stack = (error as Error)?.stack
+    BaseService.handleError({ status, message, stack })
   }
 
   BaseService.initApplication()

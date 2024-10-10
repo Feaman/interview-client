@@ -36,6 +36,13 @@ q-page
     v-if="candidates.length"
     :class="{ 'is-mobile': isMobile }"
   )
+
+    q-btn(
+      @click="downloadReport()"
+      label="Download"
+    )
+    #report
+
     q-list.rounded-borders.bg-white(
       :bordered="!isMobile"
       :class="{ 'borders-y': isMobile }"
@@ -231,8 +238,11 @@ q-page
 
 <script setup lang="ts">
 import { mdiClose, mdiFileDocument } from '@quasar/extras/mdi-v6'
-import { computed, nextTick, ref } from 'vue'
+import {
+  computed, nextTick, onMounted, ref,
+} from 'vue'
 import { useRouter } from 'vue-router'
+import { data } from 'autoprefixer'
 import CandidateService from '~/services/candidates-service'
 import CandidateModel from '~/models/candidate-model'
 import { ROUTE_CANDIDATE, ROUTE_NEW_TEMPLATE } from '~/router/routes'
@@ -242,6 +252,8 @@ import {
   candidates, isMobile,
   templates, isCandidateLoading,
 } from '~/composables'
+import { downloadURI } from '~/helpers/canvas'
+import BaseService from '~/services/base-service'
 
 defineOptions({
   name: 'IndexPage',
@@ -264,8 +276,22 @@ const candidatesSorted = computed(() => candidates.value.sort((previousItem, nex
 const router = useRouter()
 const isShowReport = ref(false)
 const selectedCandidate = ref<CandidateModel | undefined>(undefined)
-
 const isValid = computed(() => firstName.value.length >= 3 && template.value)
+
+async function downloadReport() {
+  try {
+    const stage = await CandidateService.generateReport(candidates.value[1])
+    // const dataURL = stage.toDataURL({ pixelRatio: window.devicePixelRatio || 1 })
+    // if (!dataURL) {
+    //   throw new Error('No data URL')
+    // }
+    // downloadURI(dataURL, 'stage.png')
+  } catch (error) {
+    BaseService.handleError({ status: 500, message: (error as Error).message })
+  }
+}
+
+downloadReport()
 
 function openCandidate(candidate: CandidateModel) {
   router.push({ name: ROUTE_CANDIDATE, params: { id: String(candidate.id) } })
