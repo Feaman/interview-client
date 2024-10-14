@@ -11,6 +11,7 @@ export const LANGUAGES = [
 
 export const globalError = ref<TGlobalError | undefined>(undefined)
 export const isConfigLoading = ref(false)
+export const isReportGenerating = ref(false)
 export const isConfigLoaded = ref(false)
 export const isMobile = ref(window.innerWidth < 768)
 export const isCandidateLoading = ref(false)

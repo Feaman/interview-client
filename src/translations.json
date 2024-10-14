@@ -56,6 +56,9 @@
     "File is not an image": "Файл не является изображением",
     "web service for conducting interviews": "помощник при проведении интервью",
     "REPORT": "ОТЧЁТ",
+    "Good": "Хорошо",
+    "Average": "Средне",
+    "Bad": "Плохо",
     "show report": "Показать отчёт"
   }
 }

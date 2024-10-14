@@ -1,5 +1,6 @@
 <template lang="pug">
 .main-layout
+  #test(style="height: 1px; overflow: hidden;")
   .global-loader.row.flex-center.full-width(
     v-if="isConfigLoading"
   )
@@ -17,7 +18,7 @@
     )
       q-toolbar.toolbar
         .row(
-          @click="router.push({ name: ROUTE_INDEX })"
+          @click="goToHome()"
         )
           img(src="/icons/icon.png" style="width: 35px; height: 35px;")
           .font-size-24.cursor-pointer.ml-1 {{ t('Interviews') }}
@@ -37,7 +38,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import {
+  computed, onMounted, ref, watch,
+} from 'vue'
 import { useRouter } from 'vue-router'
 import { t } from '~/services/translate'
 import {
@@ -48,8 +51,15 @@ import {
 import { ROUTE_SIGN, ROUTE_INDEX, ROUTE_IMAGE } from '~/router/routes'
 import StorageService from '~/services/storage'
 import UsersService from '~/services/users-service'
+import { getFontLoader } from '~/helpers/canvas'
+import CandidateModel from '~/models/candidate-model'
+import CandidateService from '~/services/candidates-service'
 
 const router = useRouter()
+
+function goToHome() {
+  window.location.href = '/'
+}
 
 watch(isConfigLoading, () => {
   if (globalError.value?.status === 401) {
@@ -58,6 +68,25 @@ watch(isConfigLoading, () => {
     globalError.value = undefined
     router.push({ name: ROUTE_SIGN })
   }
+})
+
+onMounted(() => {
+  // Load fonts
+  const fontLoaderFunction = getFontLoader()
+  fontLoaderFunction(() => {
+    setTimeout(() => {
+      const candidate = new CandidateModel({
+        id: 0,
+        firstName: 'Юлия',
+        secondName: 'Володина',
+        photoPath: '',
+        // eslint-disable-next-line max-len
+        data: '[{"title":"Архитектура","comment":"","items":[{"title":"SOLID, паттерны [Singleton, Decorator, Fabric]","comment":"Незнание паттерна Singleton.","items":[],"status":"STATUS_NOT_GOOD","taskLinks":[],"taskText":""}],"status":"STATUS_NOT_GOOD","taskLinks":[],"taskText":""},{"title":"JavaScript","comment":"","items":[{"title":"Теория","comment":"","items":[],"status":"STATUS_SUPER","taskLinks":[],"taskText":""}]}]',
+        created: '2021-12-01',
+      })
+      CandidateService.generateReport(document.querySelector('#test') as HTMLDivElement, candidate)
+    })
+  })
 })
 </script>
 

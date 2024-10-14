@@ -36,19 +36,12 @@ q-page
     v-if="candidates.length"
     :class="{ 'is-mobile': isMobile }"
   )
-
-    q-btn(
-      @click="downloadReport()"
-      label="Download"
-    )
-    #report
-
     q-list.rounded-borders.bg-white(
       :bordered="!isMobile"
       :class="{ 'borders-y': isMobile }"
       separator
     )
-      q-item(
+      q-item.candidate(
         v-for="candidate in candidatesSorted"
         @click="openCandidate(candidate)"
         clickable
@@ -72,13 +65,13 @@ q-page
               :class="`bg-${mainQuestion.getColorClass()} ${index === 0 ? '' : 'ml-1'}`"
             )
 
-        q-item-section(
-          v-if="!isMobile && getIsShowReportButton(candidate)"
-          side
+        .report-button.pl-0(
+          v-if="getIsShowReportButton(candidate)"
         )
           q-btn(
             @click.stop="showReport(candidate)"
             :icon="mdiFileDocument"
+            color="grey-7"
             flat
             round
           )
@@ -252,7 +245,7 @@ import {
   candidates, isMobile,
   templates, isCandidateLoading,
 } from '~/composables'
-import { downloadURI } from '~/helpers/canvas'
+import { downloadURI, getFontLoader } from '~/helpers/canvas'
 import BaseService from '~/services/base-service'
 
 defineOptions({
@@ -277,21 +270,6 @@ const router = useRouter()
 const isShowReport = ref(false)
 const selectedCandidate = ref<CandidateModel | undefined>(undefined)
 const isValid = computed(() => firstName.value.length >= 3 && template.value)
-
-async function downloadReport() {
-  try {
-    const stage = await CandidateService.generateReport(candidates.value[1])
-    // const dataURL = stage.toDataURL({ pixelRatio: window.devicePixelRatio || 1 })
-    // if (!dataURL) {
-    //   throw new Error('No data URL')
-    // }
-    // downloadURI(dataURL, 'stage.png')
-  } catch (error) {
-    BaseService.handleError({ status: 500, message: (error as Error).message })
-  }
-}
-
-downloadReport()
 
 function openCandidate(candidate: CandidateModel) {
   router.push({ name: ROUTE_CANDIDATE, params: { id: String(candidate.id) } })
@@ -366,8 +344,18 @@ async function removeCandidate() {
 }
 </script>
 
-  <style lang="scss" scoped>
-  .add-dialog {
-    width: 300px;
+<style lang="scss" scoped>
+.add-dialog {
+  width: 300px;
+}
+
+.candidate {
+  position: relative;
+
+  .report-button {
+    position: absolute;
+    right: 60px;
+    top: calc((100% - 42px) / 2);
   }
-  </style>
+}
+</style>

@@ -1,7 +1,10 @@
 import { AxiosError } from 'axios'
 import { boot } from 'quasar/wrappers'
 import { api } from '~/boot/axios'
+import { getFontLoader } from '~/helpers/canvas'
+import CandidateModel from '~/models/candidate-model'
 import BaseService from '~/services/base-service'
+import CandidateService from '~/services/candidates-service'
 
 export default boot(({ app }) => {
   BaseService.api = api

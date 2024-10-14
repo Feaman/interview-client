@@ -1,87 +1,108 @@
 <template lang="pug">
-  q-card.candidate-report(style="width: 900px; max-width: 900px;")
-    q-card-section.column.items-center
-      .candidate-report__candidate.column.items-center.rounded-borders.pa-4.pt-1
-        PersonAvatar(
-          :photoPath="candidate.photoPath"
-          :initials="candidate.getInitials()"
-        )
-        .text-subtitle1.text-weight-bold.font-size-24.mt-2 {{ candidate.getFio() }}
-
-      .row.flex-center
-        q-avatar.bg-green(size="18px")
-        .ml-1 Хорошо
-        q-avatar.bg-orange.ml-6(size="18px")
-        .ml-1 Средне
-        q-avatar.bg-red.ml-6(size="18px")
-        .ml-1 Плохо
-
-      .candidate-report__question.rounded-borders.full-width.mt-4(
-        v-for="question in questions"
-        bordered
-        separator
+q-card.report
+  q-card-section.pa-0
+    .loader.row.flex-center.full-width(
+      v-if="isLoading"
+      style="padding: 150px 0"
+    )
+      q-spinner-cube(
+        color="purple"
+        size="5.5em"
       )
-        .candidate-report__question-title.text-center.py-2.bg-grey-2
-          .row.items-center.justify-center
-            .text-uppercase.font-size-21.text-weight-bolder(
-              :class="`text-${question.getColorClass()}`"
-            ) {{ question.title }}
-          .font-size-14.text-grey-7.line-height-16.mt-1(
-            v-if="question.comment"
-            caption
-          ) {{ question.comment }}
-
-        q-separator
-
-        q-list(
-          separator
-        )
-          q-item.py-2.px-0(
-            v-for="subQuestion in getSubQuestions(question)"
-          )
-            q-item-section.ml-4
-              q-item-label.font-size-18(
-                :class="`text-${subQuestion.getColorClass()}`"
-              ) {{ subQuestion.title }}
-              q-item-label.font-size-14.mt-0(
-                v-if="subQuestion.comment"
-                caption
-              ) {{ subQuestion.comment }}
+    #report(
+      ref="report"
+    )
+    q-btn.upload-button(
+      v-if="!isLoading"
+      @click="downloadReport()"
+      :icon="mdiUpload"
+      color="primary"
+      round
+    )
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { mdiThumbUp } from '@quasar/extras/mdi-v6'
+import {
+  computed, onMounted, onUnmounted, useTemplateRef, nextTick,
+  ref,
+} from 'vue'
+import { Stage } from 'konva/lib/Stage'
+import { mdiUpload } from '@quasar/extras/mdi-v6'
 import CandidateModel from '~/models/candidate-model'
-import QuestionModel from '~/models/question-model'
+import CandidateService from '~/services/candidates-service'
+import BaseService from '~/services/base-service'
+import { downloadURI } from '~/helpers/canvas'
 
 const props = defineProps({
   candidate: { type: CandidateModel, required: true },
 })
 
 const questions = computed(() => props.candidate.questions.filter((question) => question.status))
-const { STATUS_SUPER } = QuestionModel
-const { STATUS_NOT_GOOD } = QuestionModel
-const { STATUS_BAD } = QuestionModel
+const $scrollHelper = useTemplateRef<HTMLDivElement>('scrollHelper')
+const $report = useTemplateRef<HTMLDivElement>('report')
+const isLoading = ref(true)
+let stage: Stage
 
-function getSubQuestions(question: QuestionModel) {
-  return question.items.filter((subQuestion) => subQuestion.status)
+async function downloadReport() {
+  try {
+    const downloadStage = await CandidateService.generateReport(document.createElement('div'), props.candidate, 900)
+    const dataURL = downloadStage.toDataURL({ pixelRatio: window.devicePixelRatio || 2 })
+    if (!dataURL) {
+      throw new Error('No data URL')
+    }
+    downloadURI(dataURL, `${props.candidate.getFio()}.png`)
+  } catch (error) {
+    const message = (typeof error === 'string') ? error : (error as Error).message
+    BaseService.handleError({ status: 500, message })
+  }
 }
+
+async function generateReport() {
+  try {
+    stage = await CandidateService.generateReport($report.value, props.candidate)
+    isLoading.value = false
+  } catch (error) {
+    const message = (typeof error === 'string') ? error : (error as Error).message
+    BaseService.handleError({ status: 500, message })
+  }
+}
+
+async function handleWindowResize() {
+  try {
+    if (!$report) {
+      throw new Error('No report')
+    }
+    stage.remove()
+    stage = await CandidateService.generateReport($report.value, props.candidate)
+  } catch (error) {
+    const message = (typeof error === 'string') ? error : (error as Error).message
+    BaseService.handleError({ status: 500, message })
+  }
+}
+
+window.addEventListener('resize', handleWindowResize)
+
+onMounted(async () => {
+  if ($report.value) {
+    await generateReport()
+    const $reportContainer = document.querySelector('.report') as HTMLDivElement
+    if (($reportContainer?.scrollHeight || 0) > ($reportContainer?.offsetHeight || 0)) {
+      handleWindowResize()
+    }
+  }
+})
+onUnmounted(() => window.removeEventListener('resize', handleWindowResize))
 </script>
 
 <style lang="scss" scoped>
-.candidate-report {
-  .candidate-report__question, .candidate-report__avatar {
-    border: 1px solid rgba(0, 0, 0, 0.12);
-  }
+.report {
+  width: 100%;
+  max-width: 900px;
 
-  .candidate-report__question-title {
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-  }
-
-  .q-item {
-    min-height: 0;
+  .upload-button {
+    position: absolute;
+    top: 24px;
+    right: 24px;
   }
 }
 </style>
