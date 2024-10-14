@@ -1,6 +1,6 @@
 <template lang="pug">
 .main-layout
-  #test(style="height: 1px; overflow: hidden;")
+  #test(style="height: 1px; position: absolute; overflow: hidden;")
   .global-loader.row.flex-center.full-width(
     v-if="isConfigLoading"
   )
