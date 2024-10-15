@@ -15,7 +15,7 @@ q-page.template-page(
         color="primary"
         size="1.5em"
       )
-    q-breadcrumbs-el(
+    q-breadcrumbs-el.text-bold(
       :to="{ name: ROUTE_TEMPLATES }"
       :label="t('Templates')"
       icon="widgets"

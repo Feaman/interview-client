@@ -13,7 +13,7 @@ q-page
         color="primary"
         size="1.5em"
       )
-    q-breadcrumbs-el.ml-1(
+    q-breadcrumbs-el.text-bold.ml-1(
       :label="t('Candidates')"
       icon="home"
     )
@@ -245,8 +245,6 @@ import {
   candidates, isMobile,
   templates, isCandidateLoading,
 } from '~/composables'
-import { downloadURI, getFontLoader } from '~/helpers/canvas'
-import BaseService from '~/services/base-service'
 
 defineOptions({
   name: 'IndexPage',

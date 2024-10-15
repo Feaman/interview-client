@@ -1,6 +1,5 @@
 <template lang="pug">
 .main-layout
-  #test(style="height: 1px; position: absolute; overflow: hidden;")
   .global-loader.row.flex-center.full-width(
     v-if="isConfigLoading"
   )
@@ -39,7 +38,7 @@
 
 <script setup lang="ts">
 import {
-  computed, onMounted, ref, watch,
+  watch,
 } from 'vue'
 import { useRouter } from 'vue-router'
 import { t } from '~/services/translate'
@@ -51,9 +50,6 @@ import {
 import { ROUTE_SIGN, ROUTE_INDEX, ROUTE_IMAGE } from '~/router/routes'
 import StorageService from '~/services/storage'
 import UsersService from '~/services/users-service'
-import { getFontLoader } from '~/helpers/canvas'
-import CandidateModel from '~/models/candidate-model'
-import CandidateService from '~/services/candidates-service'
 
 const router = useRouter()
 
@@ -68,25 +64,6 @@ watch(isConfigLoading, () => {
     globalError.value = undefined
     router.push({ name: ROUTE_SIGN })
   }
-})
-
-onMounted(() => {
-  // Load fonts
-  const fontLoaderFunction = getFontLoader()
-  fontLoaderFunction(() => {
-    setTimeout(() => {
-      const candidate = new CandidateModel({
-        id: 0,
-        firstName: 'Юлия',
-        secondName: 'Володина',
-        photoPath: '',
-        // eslint-disable-next-line max-len
-        data: '[{"title":"Архитектура","comment":"","items":[{"title":"SOLID, паттерны [Singleton, Decorator, Fabric]","comment":"Незнание паттерна Singleton.","items":[],"status":"STATUS_NOT_GOOD","taskLinks":[],"taskText":""}],"status":"STATUS_NOT_GOOD","taskLinks":[],"taskText":""},{"title":"JavaScript","comment":"","items":[{"title":"Теория","comment":"","items":[],"status":"STATUS_SUPER","taskLinks":[],"taskText":""}]}]',
-        created: '2021-12-01',
-      })
-      CandidateService.generateReport(document.querySelector('#test') as HTMLDivElement, candidate)
-    })
-  })
 })
 </script>
 
