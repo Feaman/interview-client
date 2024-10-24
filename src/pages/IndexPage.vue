@@ -36,13 +36,28 @@ q-page
     v-if="candidates.length"
     :class="{ 'is-mobile': isMobile }"
   )
-    q-list.rounded-borders.bg-white(
+    q-input.bg-white(
+      v-model="searchQuery"
+      :placeholder="t('Search')"
+      clearable
+      outlined
+      dense
+    )
+    q-card.text-center.shadow-0.mt-4.py-8(
+      v-if="searchQuery && !handledCandidates.length"
+      :bordered="!isMobile"
+      :class="{ 'borders-y': isMobile }"
+    )
+      q-card-section.py-0
+        .font-size-24.text-red {{ t('Such a search query results with no one candidate. Try another search query.') }}
+    q-list.rounded-borders.bg-white.mt-4(
+      v-if="handledCandidates.length"
       :bordered="!isMobile"
       :class="{ 'borders-y': isMobile }"
       separator
     )
       q-item.candidate(
-        v-for="candidate in candidatesSorted"
+        v-for="candidate in handledCandidates"
         @click="openCandidate(candidate)"
         clickable
         v-ripple
@@ -56,7 +71,7 @@ q-page
         </q-item-section>
 
         q-item-section.pa-1
-          q-item-label.font-size-16.text-grey-9 {{ candidate.getFio() }}
+          q-item-label.font-size-16.text-grey-9(v-html="candidate.getFio(searchQuery)")
           q-item-label.font-size-14.text-grey(caption) {{ getDateTime(candidate) }}
           q-item-label.row
             div(
@@ -127,12 +142,14 @@ q-page
           v-model="firstName"
           ref="firstNameElement"
           :hint="t('At least 3 letters')"
+          :rules="[value => StringHelper.checkForLettersAndSpaces(value) || t('Only letters and spaces are allowed')]"
           outlined
           dense
         )
         .text-h6.mt-4 {{ t('Second name') }}
         q-input(
           v-model="secondName"
+          :rules="[value => StringHelper.checkForLettersAndSpaces(value) || t('Only letters and spaces are allowed')]"
           outlined
           dense
         )
@@ -245,6 +262,7 @@ import {
   candidates, isMobile,
   templates, isCandidateLoading,
 } from '~/composables'
+import StringHelper from '~/helpers/string'
 
 defineOptions({
   name: 'IndexPage',
@@ -254,6 +272,7 @@ const MAX_FILE_SIZE = 2097152
 const ERROR_FILE_SIZE = 'max-file-size'
 const ERROR_FILE_TYPE = 'accept'
 
+const searchQuery = ref('')
 const firstNameElement = ref(null)
 const photoErrorText = ref('')
 const isDialogShown = ref(false)
@@ -263,11 +282,24 @@ const template = ref<TemplateModel | undefined>(templates.value.find((_template)
 const photo = ref<File | undefined>(undefined)
 const isRemoveDialogShown = ref(false)
 const candidateToRemove = ref<CandidateModel | null>(null)
-const candidatesSorted = computed(() => candidates.value.sort((previousItem, nextItem) => Number(nextItem.id) - Number(previousItem.id)))
+const handledCandidates = computed(() => {
+  const candidatesToShow = candidates.value.sort((previousItem, nextItem) => Number(nextItem.id) - Number(previousItem.id))
+  if (searchQuery.value) {
+    const regExp = new RegExp(searchQuery.value.toLocaleLowerCase().replace(/[/\-\\^$*+?.()|[\]{}]/g, '\\$&'), 'i')
+    return candidatesToShow.filter((candidate) => regExp.test(candidate.getFio().toLocaleLowerCase()))
+  }
+  return candidatesToShow
+})
 const router = useRouter()
 const isShowReport = ref(false)
 const selectedCandidate = ref<CandidateModel | undefined>(undefined)
-const isValid = computed(() => firstName.value.length >= 3 && template.value)
+const isValid = computed(() => {
+  const result = StringHelper.checkForLettersAndSpaces(firstName.value)
+  && StringHelper.checkForLettersAndSpaces(secondName.value)
+  && firstName.value.length >= 3
+  && template.value
+  return result
+})
 
 function openCandidate(candidate: CandidateModel) {
   router.push({ name: ROUTE_CANDIDATE, params: { id: String(candidate.id) } })

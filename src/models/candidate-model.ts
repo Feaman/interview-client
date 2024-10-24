@@ -49,7 +49,22 @@ export default class CandidateModel {
     return `${this.firstName.charAt(0).toUpperCase()}${this.secondName ? this.secondName.charAt(0).toUpperCase() : ''}`
   }
 
-  getFio() {
-    return `${this.firstName}${this.secondName ? ` ${this.secondName}` : ''}`
+  getFio(searchQuery = '') {
+    let firstName = this.firstName.replace(/[^\p{Letter}\p{Mark}\s]/gu, '')
+    let secondName = this.secondName.replace(/[^\p{Letter}\p{Mark}\s]/gu, '')
+    let fio
+    if (searchQuery) {
+      const regEx = new RegExp(searchQuery, 'ig')
+      if (searchQuery.split(' ').length > 1) {
+        fio = `${firstName}${secondName ? ` ${secondName}` : ''}`
+        fio = fio.replace(regEx, '<span class="highlight">$&</span>')
+      } else {
+        firstName = firstName.replace(regEx, '<span class="highlight">$&</span>')
+        if (secondName) {
+          secondName = secondName.replace(regEx, '<span class="highlight">$&</span>')
+        }
+      }
+    }
+    return fio || `${firstName}${secondName ? ` ${secondName}` : ''}`
   }
 }

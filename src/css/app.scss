@@ -24,3 +24,8 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
 }
+
+.highlight {
+  background-color: #e8dcff;
+  border-radius: 3px;
+}

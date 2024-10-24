@@ -114,6 +114,7 @@ q-dialog(
           v-model="firstName"
           :label="t('First name')"
           :maxlength="RULE_155_LENGTH"
+          :rules="[value => StringHelper.checkForLettersAndSpaces(value) || t('Only letters and spaces are allowed')]"
           counter
           clearable
           outlined
@@ -123,6 +124,7 @@ q-dialog(
           v-model="secondName"
           :label="t('Second name')"
           :maxlength="RULE_155_LENGTH"
+          :rules="[value => StringHelper.checkForLettersAndSpaces(value) || t('Only letters and spaces are allowed')]"
           counter
           clearable
           outlined
@@ -183,6 +185,7 @@ import { ROUTE_TEMPLATES, ROUTE_INDEX } from '~/router/routes'
 import { user } from '~/composables'
 import UsersService from '~/services/users-service'
 import { t } from '~/services/translate'
+import StringHelper from '~/helpers/string'
 
 const RULE_155_LENGTH = 155
 const RULE_1024_LENGTH = 1024
@@ -207,6 +210,8 @@ const isValid = computed(() => {
   const isFieldsValid = (email.value && email.value.length <= RULE_1024_LENGTH)
     && (firstName.value && firstName.value.length >= 3 && firstName.value.length <= RULE_155_LENGTH)
     && (secondName.value && secondName.value.length <= RULE_155_LENGTH)
+    && StringHelper.checkForLettersAndSpaces(firstName.value)
+    && StringHelper.checkForLettersAndSpaces(secondName.value)
   return isFieldsValid
 })
 

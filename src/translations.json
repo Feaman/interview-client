@@ -59,6 +59,9 @@
     "Good": "Хорошо",
     "Average": "Средне",
     "Bad": "Плохо",
+    "Search": "Поиск",
+    "Such a search query results with no one candidate. Try another search query.": "С таким поисковым запросом кандидатов не найдено. Попробуйте другой поисковый запрос.",
+    "Only letters and spaces are allowed": "Допустимы только буквы и пробелы",
     "show report": "Показать отчёт"
   }
 }
