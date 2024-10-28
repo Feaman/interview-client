@@ -49,7 +49,8 @@ q-page
       :class="{ 'borders-y': isMobile }"
     )
       q-card-section.py-0
-        .font-size-24.text-red {{ t('Such a search query results with no one candidate. Try another search query.') }}
+        .font-size-24.text-red {{ t('Such a search query results with no one candidate.') }}
+        .font-size-24.text-red {{ t('Try another search query.') }}
     q-list.rounded-borders.bg-white.mt-4(
       v-if="handledCandidates.length"
       :bordered="!isMobile"
