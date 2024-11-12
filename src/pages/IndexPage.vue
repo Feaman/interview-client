@@ -43,14 +43,17 @@ q-page
       outlined
       dense
     )
-    q-card.text-center.shadow-0.mt-4.py-8(
+    q-card.column.flex-center.shadow-0.mt-4.py-8(
       v-if="searchQuery && !handledCandidates.length"
       :bordered="!isMobile"
       :class="{ 'borders-y': isMobile }"
     )
-      q-card-section.py-0
-        .font-size-24.text-red {{ t('Such a search query results with no one candidate.') }}
-        .font-size-24.text-red {{ t('Try another search query.') }}
+      img(
+        src="/images/no-data.jpg"
+        style="width: 100px; height: 100px;"
+      )
+      q-card-section.pt-6
+        .font-size-24.text-grey {{ t('Nothing found') }}
     q-list.rounded-borders.bg-white.mt-4(
       v-if="handledCandidates.length"
       :bordered="!isMobile"
@@ -268,6 +271,9 @@ import StringHelper from '~/helpers/string'
 defineOptions({
   name: 'IndexPage',
 })
+
+const notFountImage = new Image()
+notFountImage.src = '/images/no-data.jpg'
 
 const MAX_FILE_SIZE = 2097152
 const ERROR_FILE_SIZE = 'max-file-size'
