@@ -84,6 +84,11 @@ q-page.template-page(
               outlined
               dense
             )
+            q-btn.ml-2.self-center(
+              @click="question.taskLinks.splice(index, 1)"
+              :icon="mdiClose"
+              color="red"
+            )
         q-btn(
           @click="addLink(question)"
           color="purple-7"

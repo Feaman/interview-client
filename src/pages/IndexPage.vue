@@ -182,19 +182,19 @@ q-page
         align="left"
       )
         q-btn(
+          :label="t('Close')"
+          flat
+          v-ripple
+          v-close-popup
+        )
+        q-space
+        q-btn(
           @click="add()"
           :disabled="!isValid"
           :loading="isCandidateLoading"
           :label="t('Create')"
           color="primary"
           flat
-        )
-        q-space
-        q-btn(
-          :label="t('Close')"
-          flat
-          v-ripple
-          v-close-popup
         )
 
   q-dialog(
