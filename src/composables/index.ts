@@ -1,5 +1,6 @@
 import { ref } from 'vue'
 import CandidateModel from '~/models/candidate-model'
+import FileModel from '~/models/file-model'
 import TemplateModel from '~/models/template-model'
 import UserModel from '~/models/user-model'
 import { type TGlobalError } from '~/services/base-service'
@@ -16,8 +17,10 @@ export const isConfigLoaded = ref(false)
 export const isMobile = ref(window.innerWidth < 768)
 export const isCandidateLoading = ref(false)
 export const isTemplateLoading = ref(false)
+export const isFileLoading = ref(false)
 export const candidates = ref([] as CandidateModel[])
 export const templates = ref([] as TemplateModel[])
+export const files = ref([] as FileModel[])
 export const currentCandidate = ref<CandidateModel | undefined>(undefined)
 export const currentLanguage = ref(LANGUAGES[0])
 export const user = ref<undefined | UserModel>(undefined)

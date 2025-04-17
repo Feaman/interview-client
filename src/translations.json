@@ -62,6 +62,9 @@
     "Search": "Поиск",
     "Nothing found": "Ничего не найдено",
     "Only letters and spaces are allowed": "Допустимы только буквы и пробелы",
-    "show report": "Показать отчёт"
+    "show report": "Показать отчёт",
+    "Files": "Файлы",
+    "Add a file": "Добавить файл",
+    "No one file found": "Файлы не найдены"
   }
 }

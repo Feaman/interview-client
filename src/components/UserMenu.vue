@@ -67,6 +67,17 @@
                 )
                 .cursor-pointer.py-1.ml-2 {{ t('Templates') }}
           q-item.font-size-16(
+            @click="router.push({ name: ROUTE_FILES })"
+            clickable
+          )
+            q-item-section
+              .row.items-center
+                q-icon(
+                  :name="mdiWidgets"
+                  color="black"
+                )
+                .cursor-pointer.py-1.ml-2 {{ t('Files') }}
+          q-item.font-size-16(
             @click="signOut()"
             clickable
           )
@@ -181,7 +192,7 @@ import {
 } from '@quasar/extras/mdi-v6'
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { ROUTE_TEMPLATES, ROUTE_INDEX } from '~/router/routes'
+import { ROUTE_TEMPLATES, ROUTE_INDEX, ROUTE_FILES } from '~/router/routes'
 import { user } from '~/composables'
 import UsersService from '~/services/users-service'
 import { t } from '~/services/translate'

@@ -1,5 +1,6 @@
 import { user } from '~/composables'
 import { TCandidate } from '~/models/candidate-model'
+import { TFile } from '~/models/file-model'
 import { TTemplate } from '~/models/template-model'
 import UserModel, { TUser } from '~/models/user-model'
 import BaseService from '~/services/base-service'
@@ -10,6 +11,7 @@ export type TConfig = {
   candidates: TCandidate[],
   templates: TTemplate[],
   token?: string,
+  files: TFile[],
 }
 
 export default class UsersService extends BaseService {

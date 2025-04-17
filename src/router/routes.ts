@@ -1,6 +1,7 @@
 import { RouteRecordRaw } from 'vue-router'
 import MainLayoutComponent from '~/layouts/MainLayout.vue'
 import CandidatePage from '~/pages/CandidatePage.vue'
+import FilesPage from '~/pages/FilesPage.vue'
 import ImagePage from '~/pages/ImagePage.vue'
 import IndexPage from '~/pages/IndexPage.vue'
 import SignPage from '~/pages/SignPage.vue'
@@ -13,6 +14,7 @@ export const ROUTE_CANDIDATE = 'candidate-id'
 export const ROUTE_NEW_TEMPLATE = 'new-template'
 export const ROUTE_UPDATE_TEMPLATE = 'update-template'
 export const ROUTE_TEMPLATES = 'templates'
+export const ROUTE_FILES = 'files'
 export const ROUTE_IMAGE = 'image'
 export const ROUTE_NOT_FOUND = 'not-found'
 
@@ -78,6 +80,15 @@ const routes: RouteRecordRaw[] = [
       path: '',
       name: ROUTE_UPDATE_TEMPLATE,
       component: TemplatePage,
+    }],
+  },
+  {
+    path: '/files',
+    component: MainLayoutComponent,
+    children: [{
+      path: '',
+      name: ROUTE_FILES,
+      component: FilesPage,
     }],
   },
 

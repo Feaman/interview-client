@@ -2,6 +2,7 @@ import { AxiosInstance } from 'axios'
 import { Router } from 'vue-router'
 import {
   candidates,
+  files,
   globalError,
   isConfigLoaded,
   isConfigLoading,
@@ -10,6 +11,7 @@ import {
   user,
 } from '~/composables'
 import CandidateModel from '~/models/candidate-model'
+import FileModel from '~/models/file-model'
 import TemplateModel from '~/models/template-model'
 import UserModel from '~/models/user-model'
 import { TConfig } from '~/services/users-service'
@@ -53,6 +55,7 @@ export default class BaseService {
     user.value = new UserModel(data.user)
     candidates.value = data.candidates.map((candidateData) => new CandidateModel(candidateData))
     templates.value = data.templates.map((templateData) => new TemplateModel(templateData))
+    files.value = data.files.map((fileData) => new FileModel(fileData))
   }
 
   static handleError(error: TGlobalError) {
