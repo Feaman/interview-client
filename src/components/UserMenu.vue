@@ -73,7 +73,7 @@
             q-item-section
               .row.items-center
                 q-icon(
-                  :name="mdiWidgets"
+                  :name="mdiFileDocumentMultiple"
                   color="black"
                 )
                 .cursor-pointer.py-1.ml-2 {{ t('Files') }}
@@ -188,7 +188,7 @@ q-dialog(
 
 <script setup lang="ts">
 import {
-  mdiAccount, mdiLogout, mdiWidgets, mdiAccountGroup,
+  mdiAccount, mdiLogout, mdiWidgets, mdiAccountGroup, mdiFileDocumentMultiple,
 } from '@quasar/extras/mdi-v6'
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'

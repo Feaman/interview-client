@@ -78,6 +78,19 @@ q-page.template-page(
               outlined
               dense
             )
+            q-select.mt-1.ml-2.col(
+              outlined
+              dense
+              v-model="link.url"
+              :options="files"
+              :option-value="file => getFileLink(file)"
+              option-label="name"
+              option-disable="inactive"
+              emit-value
+              map-options
+            )
+              template(v-slot:selected-item="item")
+                span.ellipsis {{ item.opt.name }}
             q-input.mt-1.ml-2.col(
               v-model="link.url"
               :label="t('Link URL')"
@@ -194,12 +207,18 @@ q-page.template-page(
 import { computed, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { mdiClose } from '@quasar/extras/mdi-v6'
-import { templates, isMobile, isTemplateLoading } from '~/composables'
+import {
+  templates,
+  files,
+  isMobile,
+  isTemplateLoading,
+} from '~/composables'
 import TemplateModel from '~/models/template-model'
 import { ROUTE_NEW_TEMPLATE, ROUTE_TEMPLATES, ROUTE_INDEX } from '~/router/routes'
 import TemplateService from '~/services/templates-service'
 import QuestionModel from '~/models/question-model'
 import { t } from '~/services/translate'
+import { type TFile } from '~/models/file-model'
 
 defineOptions({
   name: 'TemplatePage',
@@ -245,6 +264,10 @@ async function save() {
   } finally {
     isTemplateLoading.value = false
   }
+}
+
+function getFileLink(file: TFile) {
+  return `${window.location.origin}/file-preview?path=${file.fullPath}&mime-type=${file.mimeType}`
 }
 
 function addLink(question: QuestionModel) {

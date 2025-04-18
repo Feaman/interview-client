@@ -109,6 +109,7 @@ import {
 } from '@quasar/extras/mdi-v6'
 import QuestionModel from '~/models/question-model'
 import { isMobile } from '~/composables'
+import { ROUTE_FILE_PREVIEW } from '~/router/routes'
 
 const { STATUS_SUPER } = QuestionModel
 const { STATUS_NOT_GOOD } = QuestionModel

@@ -142,7 +142,6 @@ function openRemoveDialog(template: TemplateModel) {
 async function removeTemplate() {
   const template = templateToRemove.value as TemplateModel
   await TemplateService.remove(template)
-  templates.value = templates.value.filter((_template) => _template.id !== template.id)
   isRemoveDialogShown.value = false
   templateToRemove.value = undefined
 }

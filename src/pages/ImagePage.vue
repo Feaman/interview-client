@@ -1,5 +1,5 @@
 <template lang="pug">
-q-page.image.row.flex-center
+q-page.full-width.row.flex-center
   .global-loader.row.flex-center.full-width(
     v-if="!isLoaded && !isError"
   )
@@ -23,7 +23,7 @@ q-page.image.row.flex-center
     bordered
   )
     q-card-section.text-center
-      img.image(
+      img.full-width(
         @load="isLoaded = true"
         @error="isError = true"
         :src="`/images/interview/${imageName}.jpg`"
@@ -49,9 +49,5 @@ const { imageName } = router.currentRoute.value.params
 <style lang="scss" scoped>
 .q-card {
   max-width: 100%;
-}
-
-.image {
-  width: 100%;
 }
 </style>

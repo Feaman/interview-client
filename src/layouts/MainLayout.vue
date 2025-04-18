@@ -12,15 +12,15 @@
     v-else
   )
     q-header.row.flex-center.full-width(
-      v-if="router.currentRoute.value.name !== ROUTE_IMAGE"
+      v-if="![ROUTE_IMAGE, ROUTE_FILE_PREVIEW].includes(router.currentRoute.value.name)"
       elevated
     )
       q-toolbar.toolbar
-        .row(
+        .row.cursor-pointer(
           @click="goToHome()"
         )
           img(src="/icons/icon.png" style="width: 35px; height: 35px;")
-          .font-size-24.cursor-pointer.ml-1 {{ t('Interviews') }}
+          .font-size-24.ml-1 {{ t('Interviews') }}
         .q-space
         q-select.language-select(
           v-model="currentLanguage"
@@ -47,7 +47,12 @@ import {
   currentLanguage,
   LANGUAGES,
 } from '~/composables'
-import { ROUTE_SIGN, ROUTE_INDEX, ROUTE_IMAGE } from '~/router/routes'
+import {
+  ROUTE_SIGN,
+  ROUTE_INDEX,
+  ROUTE_IMAGE,
+  ROUTE_FILE_PREVIEW,
+} from '~/router/routes'
 import StorageService from '~/services/storage'
 import UsersService from '~/services/users-service'
 

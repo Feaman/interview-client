@@ -1,6 +1,7 @@
 import { RouteRecordRaw } from 'vue-router'
 import MainLayoutComponent from '~/layouts/MainLayout.vue'
 import CandidatePage from '~/pages/CandidatePage.vue'
+import FilePreviewPage from '~/pages/FilePreviewPage.vue'
 import FilesPage from '~/pages/FilesPage.vue'
 import ImagePage from '~/pages/ImagePage.vue'
 import IndexPage from '~/pages/IndexPage.vue'
@@ -16,6 +17,7 @@ export const ROUTE_UPDATE_TEMPLATE = 'update-template'
 export const ROUTE_TEMPLATES = 'templates'
 export const ROUTE_FILES = 'files'
 export const ROUTE_IMAGE = 'image'
+export const ROUTE_FILE_PREVIEW = 'file'
 export const ROUTE_NOT_FOUND = 'not-found'
 
 const routes: RouteRecordRaw[] = [
@@ -26,6 +28,15 @@ const routes: RouteRecordRaw[] = [
       path: '',
       name: ROUTE_IMAGE,
       component: ImagePage,
+    }],
+  },
+  {
+    path: '/file-preview',
+    component: MainLayoutComponent,
+    children: [{
+      path: '',
+      name: ROUTE_FILE_PREVIEW,
+      component: FilePreviewPage,
     }],
   },
   {

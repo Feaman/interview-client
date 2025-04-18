@@ -8,7 +8,7 @@ import {
 
 import { isConfigLoaded } from '~/composables'
 import BaseService from '~/services/base-service'
-import routes, { ROUTE_IMAGE, ROUTE_NOT_FOUND } from './routes'
+import routes, { ROUTE_FILE_PREVIEW, ROUTE_IMAGE, ROUTE_NOT_FOUND } from './routes'
 
 /*
  * If not building with SSR mode, you can
@@ -35,7 +35,7 @@ export default route((/* { store, ssrContext } */) => {
   })
 
   Router.beforeEach((to, from) => {
-    if (!isConfigLoaded.value && ![ROUTE_IMAGE, ROUTE_NOT_FOUND].includes(String(to.name))) {
+    if (!isConfigLoaded.value && ![ROUTE_IMAGE, ROUTE_FILE_PREVIEW, ROUTE_NOT_FOUND].includes(String(to.name))) {
       BaseService.loadConfig()
     }
   })

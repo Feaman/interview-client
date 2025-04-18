@@ -1,5 +1,9 @@
 {
   "ru": {
+    "Add": "Добавить",
+    "Change": "Изменить",
+    "Name": "Название",
+    "File": "Файл",
     "Interviews": "Интервью",
     "Candidates": "Кандидаты",
     "Templates": "Шаблоны",
@@ -51,7 +55,8 @@
     "Max file size is": "Максимальный размер файла - ",
     "Personal info": "Персональные данные",
     "Save": "Сохранить",
-    "MB": "МБ",
+    "MiB": "МиБ",
+    "KiB": "КиБ",
     "Credentials": "Учётные данные",
     "File is not an image": "Файл не является изображением",
     "web service for conducting interviews": "помощник при проведении интервью",
@@ -65,6 +70,10 @@
     "show report": "Показать отчёт",
     "Files": "Файлы",
     "Add a file": "Добавить файл",
+    "File adding": "Добавление файла",
+    "File changing": "Изменение файла",
+    "Size": "Size",
+    "Uploaded files": "Загруженные файлы",
     "No one file found": "Файлы не найдены"
   }
 }

@@ -9,6 +9,7 @@
         .error-page__status-code.text-grey-7.mt-2 Calm down, it's just a {{ statusCode }} error.
         .error-page__message.text-h4.text-blue-5.font-size-28.ml-1.mt-4 {{ message }}
         q-list.full-width.rounded-borders.mt-4(
+          v-if="0"
           bordered
         )
           q-expansion-item.error-stack.text-blue-5.text-h5(

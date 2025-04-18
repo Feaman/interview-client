@@ -5,7 +5,8 @@ export default class TranslateService {
   static translate(text: string, language: string) {
     const currentLanguageTranslations = (translations as {[key: string]: {[key: string]: string}})[language]
     if (currentLanguageTranslations) {
-      return currentLanguageTranslations[text] || text
+      const foundTranslation = currentLanguageTranslations[text]
+      return foundTranslation || text
     }
     return text
   }
